@@ -99,12 +99,11 @@ class I18n
             return $string;
         }
         $locale = self::$locales[self::$idioma];
-        putenv("LANG=".$locale);
-        setlocale(LC_MESSAGES, $locale);
-        bindtextdomain($domain, dirname(dirname(__FILE__)).'/locale');
+        putenv("LANG=" . $locale);
+        setlocale(LC_ALL, $locale);
+        bindtextdomain($domain, dirname(dirname(__FILE__)) . '/locale');
         textdomain($domain);
         bind_textdomain_codeset($domain, 'UTF-8');
         return gettext($string);
     }
-
 }

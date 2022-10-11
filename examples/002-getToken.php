@@ -35,10 +35,10 @@ header('Content-type: text/plain');
 include 'inc.php';
 
 // solicitar token
-$token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config['firma']);
+$token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config);
 var_dump($token);
 
 // si hubo errores se muestran
 foreach (\sasco\LibreDTE\Log::readAll() as $error) {
-    echo $error,"\n";
+    echo $error, "\n";
 }
