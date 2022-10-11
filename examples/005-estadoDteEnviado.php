@@ -34,10 +34,10 @@ header('Content-type: text/plain');
 include 'inc.php';
 
 // solicitar token
-$token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config['firma']);
+$token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config);
 if (!$token) {
     foreach (\sasco\LibreDTE\Log::readAll() as $error)
-        echo $error,"\n";
+        echo $error, "\n";
     exit;
 }
 
@@ -49,7 +49,7 @@ $trackID = '';
 $estado = \sasco\LibreDTE\Sii::request('QueryEstUp', 'getEstUp', [$rut, $dv, $trackID, $token]);
 
 // si el estado se pudo recuperar se muestra estado y glosa
-if ($estado!==false) {
+if ($estado !== false) {
     print_r([
         'codigo' => (string)$estado->xpath('/SII:RESPUESTA/SII:RESP_HDR/ESTADO')[0],
         'glosa' => (string)$estado->xpath('/SII:RESPUESTA/SII:RESP_HDR/GLOSA')[0],
@@ -58,4 +58,4 @@ if ($estado!==false) {
 
 // mostrar error si hubo
 foreach (\sasco\LibreDTE\Log::readAll() as $error)
-    echo $error,"\n";
+    echo $error, "\n";

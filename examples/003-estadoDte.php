@@ -36,10 +36,10 @@ header('Content-type: text/plain');
 include 'inc.php';
 
 // solicitar token
-$token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config['firma']);
+$token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config);
 if (!$token) {
     foreach (\sasco\LibreDTE\Log::readAll() as $error)
-        echo $error,"\n";
+        echo $error, "\n";
     exit;
 }
 
@@ -59,10 +59,10 @@ $xml = \sasco\LibreDTE\Sii::request('QueryEstDte', 'getEstDte', [
 ]);
 
 // si el estado se pudo recuperar se muestra
-if ($xml!==false) {
+if ($xml !== false) {
     print_r((array)$xml->xpath('/SII:RESPUESTA/SII:RESP_HDR')[0]);
 }
 
 // si hubo errores se muestran
 foreach (\sasco\LibreDTE\Log::readAll() as $error)
-    echo $error,"\n";
+    echo $error, "\n";

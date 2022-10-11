@@ -40,10 +40,10 @@ $RutEnvia = '99888777-6';
 $RutEmisor = '55444333-2';
 
 // solicitar token
-$token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config['firma']);
+$token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config);
 if (!$token) {
     foreach (\sasco\LibreDTE\Log::readAll() as $error)
-        echo $error,"\n";
+        echo $error, "\n";
     exit;
 }
 
@@ -51,16 +51,16 @@ if (!$token) {
 $result = \sasco\LibreDTE\Sii::enviar($RutEnvia, $RutEmisor, $xml, $token);
 
 // si hubo algún error al enviar al servidor mostrar
-if ($result===false) {
+if ($result === false) {
     foreach (\sasco\LibreDTE\Log::readAll() as $error)
-        echo $error,"\n";
+        echo $error, "\n";
     exit;
 }
 
 // Mostrar resultado del envío
-if ($result->STATUS!='0') {
+if ($result->STATUS != '0') {
     foreach (\sasco\LibreDTE\Log::readAll() as $error)
-        echo $error,"\n";
+        echo $error, "\n";
     exit;
 }
-echo 'DTE envíado. Track ID '.$result->TRACKID,"\n";
+echo 'DTE envíado. Track ID ' . $result->TRACKID, "\n";
