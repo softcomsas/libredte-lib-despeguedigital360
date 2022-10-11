@@ -68,7 +68,7 @@ $detalles = [
         'TpoDoc' => 30,
         'NroDoc' => 234,
         'TasaImp' => \sasco\LibreDTE\Sii::getIVA(),
-        'FchDoc' => $caratula['PeriodoTributario'].'-01',
+        'FchDoc' => $caratula['PeriodoTributario'] . '-01',
         'RUTDoc' => '78885550-8',
         'MntNeto' => 53253,
     ],
@@ -77,7 +77,7 @@ $detalles = [
         'TpoDoc' => 33,
         'NroDoc' => 32,
         'TasaImp' => \sasco\LibreDTE\Sii::getIVA(),
-        'FchDoc' => $caratula['PeriodoTributario'].'-01',
+        'FchDoc' => $caratula['PeriodoTributario'] . '-01',
         'RUTDoc' => '78885550-8',
         'MntExe' => 10633,
         'MntNeto' => 11473,
@@ -87,7 +87,7 @@ $detalles = [
         'TpoDoc' => 30,
         'NroDoc' => 781,
         'TasaImp' => \sasco\LibreDTE\Sii::getIVA(),
-        'FchDoc' => $caratula['PeriodoTributario'].'-02',
+        'FchDoc' => $caratula['PeriodoTributario'] . '-02',
         'RUTDoc' => '78885550-8',
         'MntNeto' => 30171,
         // Al existir factor de proporcionalidad se calculará el IVAUsoComun.
@@ -100,7 +100,7 @@ $detalles = [
         'TpoDoc' => 60,
         'NroDoc' => 451,
         'TasaImp' => \sasco\LibreDTE\Sii::getIVA(),
-        'FchDoc' => $caratula['PeriodoTributario'].'-03',
+        'FchDoc' => $caratula['PeriodoTributario'] . '-03',
         'RUTDoc' => '78885550-8',
         'MntNeto' => 2928,
     ],
@@ -109,12 +109,12 @@ $detalles = [
         'TpoDoc' => 33,
         'NroDoc' => 67,
         'TasaImp' => \sasco\LibreDTE\Sii::getIVA(),
-        'FchDoc' => $caratula['PeriodoTributario'].'-04',
+        'FchDoc' => $caratula['PeriodoTributario'] . '-04',
         'RUTDoc' => '78885550-8',
         'MntNeto' => 12135,
         'IVANoRec' => [
             'CodIVANoRec' => 4,
-            'MntIVANoRec' => round(12135 * (\sasco\LibreDTE\Sii::getIVA()/100)),
+            'MntIVANoRec' => round(12135 * (\sasco\LibreDTE\Sii::getIVA() / 100)),
         ],
     ],
     // COMPRA CON RETENCION TOTAL DEL IVA
@@ -122,13 +122,13 @@ $detalles = [
         'TpoDoc' => 46,
         'NroDoc' => 9,
         'TasaImp' => \sasco\LibreDTE\Sii::getIVA(),
-        'FchDoc' => $caratula['PeriodoTributario'].'-05',
+        'FchDoc' => $caratula['PeriodoTributario'] . '-05',
         'RUTDoc' => '78885550-8',
         'MntNeto' => 10632,
         'OtrosImp' => [
             'CodImp' => 15,
             'TasaImp' => \sasco\LibreDTE\Sii::getIVA(),
-            'MntImp' => round(10632 * (\sasco\LibreDTE\Sii::getIVA()/100)),
+            'MntImp' => round(10632 * (\sasco\LibreDTE\Sii::getIVA() / 100)),
         ],
     ],
     // NOTA DE CREDITO POR DESCUENTO FACTURA ELECTRONICA 32
@@ -136,14 +136,14 @@ $detalles = [
         'TpoDoc' => 60,
         'NroDoc' => 211,
         'TasaImp' => \sasco\LibreDTE\Sii::getIVA(),
-        'FchDoc' => $caratula['PeriodoTributario'].'-06',
+        'FchDoc' => $caratula['PeriodoTributario'] . '-06',
         'RUTDoc' => '78885550-8',
         'MntNeto' => 9053,
     ],
 ];
 
 // Objetos de Firma y LibroCompraVenta
-$Firma = new \sasco\LibreDTE\FirmaElectronica($config['firma']);
+$Firma = new \sasco\LibreDTE\FirmaElectronica($config);
 $LibroCompraVenta = new \sasco\LibreDTE\Sii\LibroCompraVenta();
 
 // agregar cada uno de los detalles al libro
@@ -160,4 +160,4 @@ var_dump($track_id);
 
 // si hubo errores mostrar
 foreach (\sasco\LibreDTE\Log::readAll() as $error)
-    echo $error,"\n";
+    echo $error, "\n";

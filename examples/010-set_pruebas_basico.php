@@ -107,7 +107,7 @@ $set_pruebas = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 33,
-                'Folio' => $folios[33]+1,
+                'Folio' => $folios[33] + 1,
             ],
             'Emisor' => $Emisor,
             'Receptor' => [
@@ -134,7 +134,7 @@ $set_pruebas = [
         ],
         'Referencia' => [
             'TpoDocRef' => 'SET',
-            'FolioRef' => $folios[33]+1,
+            'FolioRef' => $folios[33] + 1,
             'RazonRef' => 'CASO 414175-2',
         ],
     ],
@@ -143,7 +143,7 @@ $set_pruebas = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 33,
-                'Folio' => $folios[33]+2,
+                'Folio' => $folios[33] + 2,
             ],
             'Emisor' => $Emisor,
             'Receptor' => [
@@ -174,7 +174,7 @@ $set_pruebas = [
         ],
         'Referencia' => [
             'TpoDocRef' => 'SET',
-            'FolioRef' => $folios[33]+2,
+            'FolioRef' => $folios[33] + 2,
             'RazonRef' => 'CASO 414175-3',
         ],
     ],
@@ -183,7 +183,7 @@ $set_pruebas = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 33,
-                'Folio' => $folios[33]+3,
+                'Folio' => $folios[33] + 3,
             ],
             'Emisor' => $Emisor,
             'Receptor' => [
@@ -219,7 +219,7 @@ $set_pruebas = [
         ],
         'Referencia' => [
             'TpoDocRef' => 'SET',
-            'FolioRef' => $folios[33]+3,
+            'FolioRef' => $folios[33] + 3,
             'RazonRef' => 'CASO 414175-4',
         ],
     ],
@@ -266,7 +266,7 @@ $set_pruebas = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 61,
-                'Folio' => $folios[61]+1,
+                'Folio' => $folios[61] + 1,
             ],
             'Emisor' => $Emisor,
             'Receptor' => [
@@ -301,12 +301,12 @@ $set_pruebas = [
         'Referencia' => [
             [
                 'TpoDocRef' => 'SET',
-                'FolioRef' => $folios[61]+1,
+                'FolioRef' => $folios[61] + 1,
                 'RazonRef' => 'CASO 414175-6',
             ],
             [
                 'TpoDocRef' => 33,
-                'FolioRef' => $folios[33]+1,
+                'FolioRef' => $folios[33] + 1,
                 'CodRef' => 3,
                 'RazonRef' => 'DEVOLUCION DE MERCADERIAS',
             ],
@@ -317,7 +317,7 @@ $set_pruebas = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 61,
-                'Folio' => $folios[61]+2,
+                'Folio' => $folios[61] + 2,
             ],
             'Emisor' => $Emisor,
             'Receptor' => [
@@ -357,12 +357,12 @@ $set_pruebas = [
         'Referencia' => [
             [
                 'TpoDocRef' => 'SET',
-                'FolioRef' => $folios[61]+2,
+                'FolioRef' => $folios[61] + 2,
                 'RazonRef' => 'CASO 414175-7',
             ],
             [
                 'TpoDocRef' => 33,
-                'FolioRef' => $folios[33]+2,
+                'FolioRef' => $folios[33] + 2,
                 'CodRef' => 1,
                 'RazonRef' => 'ANULA FACTURA',
             ],
@@ -409,10 +409,10 @@ $set_pruebas = [
 ];
 
 // Objetos de Firma, Folios y EnvioDTE
-$Firma = new \sasco\LibreDTE\FirmaElectronica($config['firma']);
+$Firma = new \sasco\LibreDTE\FirmaElectronica($config);
 $Folios = [];
 foreach ($folios as $tipo => $cantidad)
-    $Folios[$tipo] = new \sasco\LibreDTE\Sii\Folios(file_get_contents('xml/folios/'.$tipo.'.xml'));
+    $Folios[$tipo] = new \sasco\LibreDTE\Sii\Folios(file_get_contents('xml/folios/' . $tipo . '.xml'));
 $EnvioDTE = new \sasco\LibreDTE\Sii\EnvioDte();
 
 // generar cada DTE, timbrar, firmar y agregar al sobre de EnvioDTE
@@ -434,4 +434,4 @@ var_dump($track_id);
 
 // si hubo errores mostrar
 foreach (\sasco\LibreDTE\Log::readAll() as $error)
-    echo $error,"\n";
+    echo $error, "\n";

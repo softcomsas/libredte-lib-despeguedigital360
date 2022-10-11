@@ -85,7 +85,7 @@ $caratula = [
 ];
 
 // Objetos de Firma y Folios
-$Firma = new \sasco\LibreDTE\FirmaElectronica($config['firma']);
+$Firma = new \sasco\LibreDTE\FirmaElectronica($config);
 $Folios = new \sasco\LibreDTE\Sii\Folios(file_get_contents('xml/folios/33.xml'));
 
 // generar XML del DTE timbrado y firmado
@@ -107,4 +107,4 @@ if ($EnvioDTE->schemaValidate()) {
 
 // si hubo algún error se muestra
 foreach (\sasco\LibreDTE\Log::readAll() as $log)
-    echo $log,"\n";
+    echo $log, "\n";

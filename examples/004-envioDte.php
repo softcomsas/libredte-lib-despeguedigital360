@@ -34,10 +34,18 @@ header('Content-type: text/plain');
 // incluir archivos php de la biblioteca y configuraciones
 include 'inc.php';
 
+// solicitar ambiente desarrollo con parámetro
+echo \sasco\LibreDTE\Sii::wsdl('CrSeed', \sasco\LibreDTE\Sii::CERTIFICACION), "\n";
+
+// solicitar ambiente desarrollo con configuración
+\sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
+echo \sasco\LibreDTE\Sii::wsdl('CrSeed'), "\n";
+echo \sasco\LibreDTE\Sii::wsdl('GetTokenFromSeed'), "\n";
+
 // datos del envío
 $xml = file_get_contents('dte_33.xml');
-$RutEnvia = '99888777-6';
-$RutEmisor = '55444333-2';
+$RutEnvia = '77321084-5';
+$RutEmisor = '77321084-5';
 
 // solicitar token
 $token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config);
