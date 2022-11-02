@@ -35,6 +35,11 @@ header('Content-type: text/plain');
 // incluir archivos php de la biblioteca y configuraciones
 include 'inc.php';
 
+// solicitar ambiente desarrollo con configuración
+\sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
+echo \sasco\LibreDTE\Sii::wsdl('CrSeed'), "\n";
+echo \sasco\LibreDTE\Sii::wsdl('GetTokenFromSeed'), "\n\n";
+
 // solicitar token
 $token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config);
 if (!$token) {
@@ -51,8 +56,8 @@ $xml = \sasco\LibreDTE\Sii::request('QueryEstDte', 'getEstDte', [
     'DvCompania'        => '',
     'RutReceptor'       => '',
     'DvReceptor'        => '',
-    'TipoDte'           => '',
-    'FolioDte'          => '',
+    'TipoDte'           => '33',
+    'FolioDte'          => '1',
     'FechaEmisionDte'   => '',
     'MontoDte'          => '',
     'token'             => $token,

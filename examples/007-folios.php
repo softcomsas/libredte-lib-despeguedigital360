@@ -34,17 +34,22 @@ header('Content-type: text/plain');
 // incluir archivos php de la biblioteca y configuraciones
 include 'inc.php';
 
+// solicitar ambiente desarrollo con configuración
+\sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
+echo \sasco\LibreDTE\Sii::wsdl('CrSeed'), "\n";
+echo \sasco\LibreDTE\Sii::wsdl('GetTokenFromSeed'), "\n\n";
+
 // cargar folios
-$Folios = new \sasco\LibreDTE\Sii\Folios(file_get_contents('xml/folios.xml'));
+$Folios = new \sasco\LibreDTE\Sii\Folios(file_get_contents('folios/33.xml'));
 
 // ejemplos métodos
-echo 'Folios son validos?: ',($Folios->check()?'si':'no'),"\n\n";
-echo 'Rango de folios: ',$Folios->getDesde(),' al ',$Folios->getHasta(),"\n\n";
+echo 'Folios son validos?: ', ($Folios->check() ? 'si' : 'no'), "\n\n";
+echo 'Rango de folios: ', $Folios->getDesde(), ' al ', $Folios->getHasta(), "\n\n";
 if ($Folios->getCaf())
-    echo 'CAF: ',$Folios->getCaf()->C14N(),"\n\n";
-echo $Folios->getPrivateKey(),"\n";
+    echo 'CAF: ', $Folios->getCaf()->C14N(), "\n\n";
+echo $Folios->getPrivateKey(), "\n";
 echo $Folios->getPublicKey();
 
 // si hubo errores mostrar
 foreach (\sasco\LibreDTE\Log::readAll() as $error)
-    echo $error,"\n";
+    echo $error, "\n";

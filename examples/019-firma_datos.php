@@ -38,17 +38,17 @@ header('Content-type: text/plain');
 include 'inc.php';
 
 // objeto de la firma
-$Firma = new \sasco\LibreDTE\FirmaElectronica($config['firma']);
+$Firma = new \sasco\LibreDTE\FirmaElectronica($config);
 
 // mostrar datos de la persona dueña de la firma
-echo 'RUN    : ',$Firma->getID(),"\n";
-echo 'Nombre : ',$Firma->getName(),"\n";
-echo 'Email  : ',$Firma->getEmail(),"\n";
-echo 'Desde  : ',$Firma->getFrom(),"\n";
-echo 'Hasta  : ',$Firma->getTo(),"\n";
-echo 'Emisor : ',$Firma->getIssuer(),"\n\n\n";
+echo 'RUN    : ', $Firma->getID(), "\n";
+echo 'Nombre : ', $Firma->getName(), "\n";
+echo 'Email  : ', $Firma->getEmail(), "\n";
+echo 'Desde  : ', $Firma->getFrom(), "\n";
+echo 'Hasta  : ', $Firma->getTo(), "\n";
+echo 'Emisor : ', $Firma->getIssuer(), "\n\n\n";
 print_r($Firma->getData());
 
 // si hubo errores mostrar
 foreach (\sasco\LibreDTE\Log::readAll() as $error)
-    echo $error,"\n";
+    echo $error, "\n";

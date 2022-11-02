@@ -41,12 +41,17 @@ header('Content-type: text/plain; charset=ISO-8859-1');
 // incluir archivos php de la biblioteca y configuraciones
 include 'inc.php';
 
+// solicitar ambiente desarrollo con configuración
+\sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
+echo \sasco\LibreDTE\Sii::wsdl('CrSeed'), "\n";
+echo \sasco\LibreDTE\Sii::wsdl('GetTokenFromSeed'), "\n\n";
+
 // datos
 $factura = [
     'Encabezado' => [
         'IdDoc' => [
             'TipoDTE' => 33,
-            'Folio' => 1,
+            'Folio' => 2,
         ],
         'Emisor' => [
             'RUTEmisor' => '76192083-9',
@@ -86,7 +91,7 @@ $caratula = [
 
 // Objetos de Firma y Folios
 $Firma = new \sasco\LibreDTE\FirmaElectronica($config);
-$Folios = new \sasco\LibreDTE\Sii\Folios(file_get_contents('xml/folios/33.xml'));
+$Folios = new \sasco\LibreDTE\Sii\Folios(file_get_contents('folios/33.xml'));
 
 // generar XML del DTE timbrado y firmado
 $DTE = new \sasco\LibreDTE\Sii\Dte($factura);
@@ -100,9 +105,9 @@ $EnvioDTE->setFirma($Firma);
 $EnvioDTE->setCaratula($caratula);
 $EnvioDTE->generar();
 if ($EnvioDTE->schemaValidate()) {
-    echo $EnvioDTE->generar();
-    //$track_id = $EnvioDTE->enviar();
-    //var_dump($track_id);
+    $EnvioDTE->generar();
+    $track_id = $EnvioDTE->enviar();
+    var_dump($track_id);
 }
 
 // si hubo algún error se muestra
