@@ -1,5 +1,5 @@
 {
-    "name": "sasco/libredte",
+    "name": "despeguedigital360/libredte",
     "description": "Biblioteca para trabajo con DTE del SII de Chile",
     "type": "library",
     "keywords": ["dte", "sii", "facturación electrónica"],
