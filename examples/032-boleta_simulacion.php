@@ -37,6 +37,11 @@ header('Content-type: text/plain; charset=ISO-8859-1');
 // incluir archivos php de la biblioteca y configuraciones
 include 'inc.php';
 
+// solicitar ambiente desarrollo con configuración
+\sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
+echo \sasco\LibreDTE\Sii::wsdl('CrSeed'), "\n";
+echo \sasco\LibreDTE\Sii::wsdl('GetTokenFromSeed'), "\n\n";
+
 // primer folio a usar para envio de set de pruebas
 $folios = [
     39 => 1, // boleta electrónica
@@ -93,214 +98,214 @@ $set_pruebas = [
             ],
         ],
     ],
-    // CASO 2
-    [
-        'Encabezado' => [
-            'IdDoc' => [
-                'TipoDTE' => 39,
-                'Folio' => $folios[39]+1,
-            ],
-            'Emisor' => $Emisor,
-            'Receptor' => $Receptor,
-        ],
-        'Detalle' => [
-            [
-                'NmbItem' => 'Cables de red UTP CAT6 1.5m',
-                'QtyItem' => 20,
-                'PrcItem' => 1500,
-            ],
-        ],
-    ],
-    // CASO 3
-    [
-        'Encabezado' => [
-            'IdDoc' => [
-                'TipoDTE' => 39,
-                'Folio' => $folios[39]+2,
-            ],
-            'Emisor' => $Emisor,
-            'Receptor' => $Receptor,
-        ],
-        'Detalle' => [
-            [
-                'NmbItem' => 'Rack 45U',
-                'QtyItem' => 1,
-                'PrcItem' => 650000,
-            ],
-            [
-                'NmbItem' => 'Bandejas 19"',
-                'QtyItem' => 4,
-                'PrcItem' => 27000,
-            ],
-        ],
-    ],
-    // CASO 4
-    [
-        'Encabezado' => [
-            'IdDoc' => [
-                'TipoDTE' => 39,
-                'Folio' => $folios[39]+3,
-            ],
-            'Emisor' => $Emisor,
-            'Receptor' => $Receptor,
-        ],
-        'Detalle' => [
-            [
-                'NmbItem' => 'Servidor HP Proliant XYZ',
-                'QtyItem' => 1,
-                'PrcItem' => 1500000,
-            ],
-            [
-                'IndExe' => 1,
-                'NmbItem' => 'Intalación sistema operativo',
-                'QtyItem' => 1,
-                'PrcItem' => 8000,
-            ],
-            [
-                'IndExe' => 1,
-                'NmbItem' => 'Instalación servicios ambiente web',
-                'QtyItem' => 1,
-                'PrcItem' => 50000,
-            ],
-        ],
-    ],
-    // CASO 5
-    [
-        'Encabezado' => [
-            'IdDoc' => [
-                'TipoDTE' => 39,
-                'Folio' => $folios[39]+4,
-            ],
-            'Emisor' => $Emisor,
-            'Receptor' => $Receptor,
-        ],
-        'Detalle' => [
-            [
-                'NmbItem' => 'Pendrive con Debian GNU/Linux',
-                'QtyItem' => 1,
-                'PrcItem' => 10000,
-            ],
-        ],
-    ],
-    // CASO 6
-    [
-        'Encabezado' => [
-            'IdDoc' => [
-                'TipoDTE' => 39,
-                'Folio' => $folios[39]+5,
-            ],
-            'Emisor' => $Emisor,
-            'Receptor' => $Receptor,
-        ],
-        'Detalle' => [
-            [
-                'NmbItem' => 'Tarjeta de red 100/1000 Mbps',
-                'QtyItem' => 2,
-                'PrcItem' => 5000,
-            ],
-            [
-                'IndExe' => 1,
-                'NmbItem' => 'Instalación tarjeta de red y puesta en marcha VLANs',
-                'QtyItem' => 1,
-                'PrcItem' => 200000,
-            ],
-        ],
-    ],
-    // CASO 7
-    [
-        'Encabezado' => [
-            'IdDoc' => [
-                'TipoDTE' => 39,
-                'Folio' => $folios[39]+6,
-            ],
-            'Emisor' => $Emisor,
-            'Receptor' => $Receptor,
-        ],
-        'Detalle' => [
-            [
-                'NmbItem' => 'Antena yagi 13 dBi',
-                'QtyItem' => 2,
-                'PrcItem' => 34000,
-            ],
-        ],
-    ],
-    // CASO 8
-    [
-        'Encabezado' => [
-            'IdDoc' => [
-                'TipoDTE' => 39,
-                'Folio' => $folios[39]+7,
-            ],
-            'Emisor' => $Emisor,
-            'Receptor' => $Receptor,
-        ],
-        'Detalle' => [
-            [
-                'NmbItem' => 'Antena yagi 11 dBi',
-                'QtyItem' => 1,
-                'PrcItem' => 30000,
-            ],
-            [
-                'NmbItem' => 'Antena omnidirecional 16 dBi',
-                'QtyItem' => 1,
-                'PrcItem' => 70000,
-            ],
-        ],
-    ],
-    // CASO 9
-    [
-        'Encabezado' => [
-            'IdDoc' => [
-                'TipoDTE' => 39,
-                'Folio' => $folios[39]+8,
-            ],
-            'Emisor' => $Emisor,
-            'Receptor' => $Receptor,
-        ],
-        'Detalle' => [
-            [
-                'NmbItem' => 'Cable de red UTP cat6 1.5 m',
-                'QtyItem' => 10,
-                'PrcItem' => 1500,
-            ],
-            [
-                'NmbItem' => 'Teléfono VoIP',
-                'QtyItem' => 10,
-                'PrcItem' => 45000,
-            ],
-            [
-                'NmbItem' => 'Adaptador enchufe',
-                'QtyItem' => 10,
-                'PrcItem' => 250,
-            ],
-        ],
-    ],
-    // CASO 10
-    [
-        'Encabezado' => [
-            'IdDoc' => [
-                'TipoDTE' => 39,
-                'Folio' => $folios[39]+9,
-            ],
-            'Emisor' => $Emisor,
-            'Receptor' => $Receptor,
-        ],
-        'Detalle' => [
-            [
-                'NmbItem' => 'Cable de red sin conectores',
-                'QtyItem' => 17,
-                'UnmdItem' => 'm',
-                'PrcItem' => 400,
-            ],
-        ],
-    ],
+    // // CASO 2
+    // [
+    //     'Encabezado' => [
+    //         'IdDoc' => [
+    //             'TipoDTE' => 39,
+    //             'Folio' => $folios[39] + 1,
+    //         ],
+    //         'Emisor' => $Emisor,
+    //         'Receptor' => $Receptor,
+    //     ],
+    //     'Detalle' => [
+    //         [
+    //             'NmbItem' => 'Cables de red UTP CAT6 1.5m',
+    //             'QtyItem' => 20,
+    //             'PrcItem' => 1500,
+    //         ],
+    //     ],
+    // ],
+    // // CASO 3
+    // [
+    //     'Encabezado' => [
+    //         'IdDoc' => [
+    //             'TipoDTE' => 39,
+    //             'Folio' => $folios[39] + 2,
+    //         ],
+    //         'Emisor' => $Emisor,
+    //         'Receptor' => $Receptor,
+    //     ],
+    //     'Detalle' => [
+    //         [
+    //             'NmbItem' => 'Rack 45U',
+    //             'QtyItem' => 1,
+    //             'PrcItem' => 650000,
+    //         ],
+    //         [
+    //             'NmbItem' => 'Bandejas 19"',
+    //             'QtyItem' => 4,
+    //             'PrcItem' => 27000,
+    //         ],
+    //     ],
+    // ],
+    // // CASO 4
+    // [
+    //     'Encabezado' => [
+    //         'IdDoc' => [
+    //             'TipoDTE' => 39,
+    //             'Folio' => $folios[39] + 3,
+    //         ],
+    //         'Emisor' => $Emisor,
+    //         'Receptor' => $Receptor,
+    //     ],
+    //     'Detalle' => [
+    //         [
+    //             'NmbItem' => 'Servidor HP Proliant XYZ',
+    //             'QtyItem' => 1,
+    //             'PrcItem' => 1500000,
+    //         ],
+    //         [
+    //             'IndExe' => 1,
+    //             'NmbItem' => 'Intalación sistema operativo',
+    //             'QtyItem' => 1,
+    //             'PrcItem' => 8000,
+    //         ],
+    //         [
+    //             'IndExe' => 1,
+    //             'NmbItem' => 'Instalación servicios ambiente web',
+    //             'QtyItem' => 1,
+    //             'PrcItem' => 50000,
+    //         ],
+    //     ],
+    // ],
+    // // CASO 5
+    // [
+    //     'Encabezado' => [
+    //         'IdDoc' => [
+    //             'TipoDTE' => 39,
+    //             'Folio' => $folios[39] + 4,
+    //         ],
+    //         'Emisor' => $Emisor,
+    //         'Receptor' => $Receptor,
+    //     ],
+    //     'Detalle' => [
+    //         [
+    //             'NmbItem' => 'Pendrive con Debian GNU/Linux',
+    //             'QtyItem' => 1,
+    //             'PrcItem' => 10000,
+    //         ],
+    //     ],
+    // ],
+    // // CASO 6
+    // [
+    //     'Encabezado' => [
+    //         'IdDoc' => [
+    //             'TipoDTE' => 39,
+    //             'Folio' => $folios[39] + 5,
+    //         ],
+    //         'Emisor' => $Emisor,
+    //         'Receptor' => $Receptor,
+    //     ],
+    //     'Detalle' => [
+    //         [
+    //             'NmbItem' => 'Tarjeta de red 100/1000 Mbps',
+    //             'QtyItem' => 2,
+    //             'PrcItem' => 5000,
+    //         ],
+    //         [
+    //             'IndExe' => 1,
+    //             'NmbItem' => 'Instalación tarjeta de red y puesta en marcha VLANs',
+    //             'QtyItem' => 1,
+    //             'PrcItem' => 200000,
+    //         ],
+    //     ],
+    // ],
+    // // CASO 7
+    // [
+    //     'Encabezado' => [
+    //         'IdDoc' => [
+    //             'TipoDTE' => 39,
+    //             'Folio' => $folios[39] + 6,
+    //         ],
+    //         'Emisor' => $Emisor,
+    //         'Receptor' => $Receptor,
+    //     ],
+    //     'Detalle' => [
+    //         [
+    //             'NmbItem' => 'Antena yagi 13 dBi',
+    //             'QtyItem' => 2,
+    //             'PrcItem' => 34000,
+    //         ],
+    //     ],
+    // ],
+    // // CASO 8
+    // [
+    //     'Encabezado' => [
+    //         'IdDoc' => [
+    //             'TipoDTE' => 39,
+    //             'Folio' => $folios[39] + 7,
+    //         ],
+    //         'Emisor' => $Emisor,
+    //         'Receptor' => $Receptor,
+    //     ],
+    //     'Detalle' => [
+    //         [
+    //             'NmbItem' => 'Antena yagi 11 dBi',
+    //             'QtyItem' => 1,
+    //             'PrcItem' => 30000,
+    //         ],
+    //         [
+    //             'NmbItem' => 'Antena omnidirecional 16 dBi',
+    //             'QtyItem' => 1,
+    //             'PrcItem' => 70000,
+    //         ],
+    //     ],
+    // ],
+    // // CASO 9
+    // [
+    //     'Encabezado' => [
+    //         'IdDoc' => [
+    //             'TipoDTE' => 39,
+    //             'Folio' => $folios[39] + 8,
+    //         ],
+    //         'Emisor' => $Emisor,
+    //         'Receptor' => $Receptor,
+    //     ],
+    //     'Detalle' => [
+    //         [
+    //             'NmbItem' => 'Cable de red UTP cat6 1.5 m',
+    //             'QtyItem' => 10,
+    //             'PrcItem' => 1500,
+    //         ],
+    //         [
+    //             'NmbItem' => 'Teléfono VoIP',
+    //             'QtyItem' => 10,
+    //             'PrcItem' => 45000,
+    //         ],
+    //         [
+    //             'NmbItem' => 'Adaptador enchufe',
+    //             'QtyItem' => 10,
+    //             'PrcItem' => 250,
+    //         ],
+    //     ],
+    // ],
+    // // CASO 10
+    // [
+    //     'Encabezado' => [
+    //         'IdDoc' => [
+    //             'TipoDTE' => 39,
+    //             'Folio' => $folios[39] + 9,
+    //         ],
+    //         'Emisor' => $Emisor,
+    //         'Receptor' => $Receptor,
+    //     ],
+    //     'Detalle' => [
+    //         [
+    //             'NmbItem' => 'Cable de red sin conectores',
+    //             'QtyItem' => 17,
+    //             'UnmdItem' => 'm',
+    //             'PrcItem' => 400,
+    //         ],
+    //     ],
+    // ],
 ];
 
 // Objetos de Firma y Folios
-$Firma = new \sasco\LibreDTE\FirmaElectronica($config['firma']);
+$Firma = new \sasco\LibreDTE\FirmaElectronica($config);
 $Folios = [];
 foreach ($folios as $tipo => $cantidad)
-    $Folios[$tipo] = new \sasco\LibreDTE\Sii\Folios(file_get_contents('xml/folios/'.$tipo.'.xml'));
+    $Folios[$tipo] = new \sasco\LibreDTE\Sii\Folios(file_get_contents('folios/' . $tipo . '.xml'));
 
 // generar cada DTE, timbrar, firmar y agregar al sobre de EnvioBOLETA
 $EnvioDTE = new \sasco\LibreDTE\Sii\EnvioDte();
@@ -321,4 +326,4 @@ if ($EnvioDTE->schemaValidate()) {
 
 // si hubo errores mostrar
 foreach (\sasco\LibreDTE\Log::readAll() as $error)
-    echo $error,"\n";
+    echo $error, "\n";

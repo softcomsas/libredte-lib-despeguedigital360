@@ -102,7 +102,7 @@ $set_pruebas = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 39,
-                'Folio' => $folios[39]+1,
+                'Folio' => $folios[39] + 1,
             ],
             'Emisor' => $Emisor,
             'Receptor' => $Receptor,
@@ -120,7 +120,7 @@ $set_pruebas = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 39,
-                'Folio' => $folios[39]+2,
+                'Folio' => $folios[39] + 2,
             ],
             'Emisor' => $Emisor,
             'Receptor' => $Receptor,
@@ -143,7 +143,7 @@ $set_pruebas = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 39,
-                'Folio' => $folios[39]+3,
+                'Folio' => $folios[39] + 3,
             ],
             'Emisor' => $Emisor,
             'Receptor' => $Receptor,
@@ -173,7 +173,7 @@ $set_pruebas = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 39,
-                'Folio' => $folios[39]+4,
+                'Folio' => $folios[39] + 4,
             ],
             'Emisor' => $Emisor,
             'Receptor' => $Receptor,
@@ -191,7 +191,7 @@ $set_pruebas = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 39,
-                'Folio' => $folios[39]+5,
+                'Folio' => $folios[39] + 5,
             ],
             'Emisor' => $Emisor,
             'Receptor' => $Receptor,
@@ -215,7 +215,7 @@ $set_pruebas = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 39,
-                'Folio' => $folios[39]+6,
+                'Folio' => $folios[39] + 6,
             ],
             'Emisor' => $Emisor,
             'Receptor' => $Receptor,
@@ -233,7 +233,7 @@ $set_pruebas = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 39,
-                'Folio' => $folios[39]+7,
+                'Folio' => $folios[39] + 7,
             ],
             'Emisor' => $Emisor,
             'Receptor' => $Receptor,
@@ -256,7 +256,7 @@ $set_pruebas = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 39,
-                'Folio' => $folios[39]+8,
+                'Folio' => $folios[39] + 8,
             ],
             'Emisor' => $Emisor,
             'Receptor' => $Receptor,
@@ -294,7 +294,7 @@ $set_pruebas = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 39,
-                'Folio' => $folios[39]+9,
+                'Folio' => $folios[39] + 9,
             ],
             'Emisor' => $Emisor,
             'Receptor' => $Receptor,
@@ -311,10 +311,10 @@ $set_pruebas = [
 ];
 
 // Objetos de Firma y Folios
-$Firma = new \sasco\LibreDTE\FirmaElectronica($config['firma']);
+$Firma = new \sasco\LibreDTE\FirmaElectronica($config);
 $Folios = [];
 foreach ($folios as $tipo => $cantidad)
-    $Folios[$tipo] = new \sasco\LibreDTE\Sii\Folios(file_get_contents('xml/folios/'.$tipo.'.xml'));
+    $Folios[$tipo] = new \sasco\LibreDTE\Sii\Folios(file_get_contents('xml/folios/' . $tipo . '.xml'));
 
 // generar cada DTE, timbrar, firmar y agregar al sobre de EnvioBOLETA
 $EnvioDTE = new \sasco\LibreDTE\Sii\EnvioDte();
@@ -363,7 +363,7 @@ $notas_credito = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 61,
-                'Folio' => $folios[61]+1,
+                'Folio' => $folios[61] + 1,
                 'MntBruto' => 1,
             ],
             'Totales' => [
@@ -385,7 +385,7 @@ $notas_credito = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 61,
-                'Folio' => $folios[61]+2,
+                'Folio' => $folios[61] + 2,
                 'MntBruto' => 1,
             ],
             'Totales' => [
@@ -407,7 +407,7 @@ $notas_credito = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 61,
-                'Folio' => $folios[61]+3,
+                'Folio' => $folios[61] + 3,
                 'MntBruto' => 1,
             ],
             'Totales' => [
@@ -420,7 +420,7 @@ $notas_credito = [
         ],
         'Detalle' => [
             [
-                'QtyItem' => $set_pruebas[6]['Detalle'][0]['QtyItem']*0.4,
+                'QtyItem' => $set_pruebas[6]['Detalle'][0]['QtyItem'] * 0.4,
             ]
         ],
         'Referencia' => [
@@ -434,7 +434,7 @@ $notas_credito = [
         'Encabezado' => [
             'IdDoc' => [
                 'TipoDTE' => 61,
-                'Folio' => $folios[61]+4,
+                'Folio' => $folios[61] + 4,
                 'MntBruto' => 1,
             ],
             'Totales' => [
@@ -447,7 +447,7 @@ $notas_credito = [
         ],
         'Detalle' => [
             [
-                'QtyItem' => $set_pruebas[9]['Detalle'][0]['QtyItem']*0.4,
+                'QtyItem' => $set_pruebas[9]['Detalle'][0]['QtyItem'] * 0.4,
             ]
         ],
         'Referencia' => [
@@ -480,4 +480,4 @@ if ($EnvioDTE->schemaValidate()) {
 
 // si hubo errores mostrar
 foreach (\sasco\LibreDTE\Log::readAll() as $error)
-    echo $error,"\n";
+    echo $error, "\n";

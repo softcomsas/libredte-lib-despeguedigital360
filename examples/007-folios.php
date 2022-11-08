@@ -40,7 +40,7 @@ echo \sasco\LibreDTE\Sii::wsdl('CrSeed'), "\n";
 echo \sasco\LibreDTE\Sii::wsdl('GetTokenFromSeed'), "\n\n";
 
 // cargar folios
-$Folios = new \sasco\LibreDTE\Sii\Folios(file_get_contents('folios/33.xml'));
+$Folios = new \sasco\LibreDTE\Sii\Folios(file_get_contents('folios/39.xml'));
 
 // ejemplos métodos
 echo 'Folios son validos?: ', ($Folios->check() ? 'si' : 'no'), "\n\n";
