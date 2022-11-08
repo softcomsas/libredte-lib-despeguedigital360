@@ -114,7 +114,8 @@ if ($EnvioDTE->schemaValidate()) {
 
     //  Aqui arranca el detalle para cuando es boleta
     $xml = $EnvioDTE->generar();
-    file_put_contents('xml/EnvioBOLETA.xml', $xml);
+    if (is_writable('xml/EnvioBOLETA.xml'))
+        file_put_contents('xml/EnvioBOLETA.xml', $xml);
 
     $boletas = 'xml/EnvioBOLETA.xml';
 
