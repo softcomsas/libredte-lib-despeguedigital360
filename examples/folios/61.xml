@@ -1,18 +1,24 @@
 <?xml version="1.0"?>
 <AUTORIZACION>
-<CAF version="1.0">
-<DA>
-<RE>13991496-1</RE>
-<RS>JOSE ANDRES RUIZ CORNEJO</RS>
-<TD>61</TD>
-<RNG><D>4</D><H>4</H></RNG>
-<FA>2019-08-08</FA>
-<RSAPK><M>qhejx+ugR/m5/EAPXHguEZYrsOeXZokcgoS/wHfwuD2BuY9Odts0MaS6Ekf/qpNVHGpbitVQyeEIhwf40BCXpw==</M><E>Aw==</E></RSAPK>
-<IDK>100</IDK>
-</DA>
-<FRMA algoritmo="SHA1withRSA">caylfS9elvx/Io3SFUi5g9gqUqlnKCgTlWVSrbT67bcxEJWlTdyENFT4eRHKQocle4FAh12QKlO6J4zIv/7dGg==</FRMA>
-</CAF>
-<RSASK>-----BEGIN RSA PRIVATE KEY-----
+    <CAF version="1.0">
+        <DA>
+            <RE>13991496-1</RE>
+            <RS>JOSE ANDRES RUIZ CORNEJO</RS>
+            <TD>61</TD>
+            <RNG>
+                <D>4</D>
+                <H>4</H>
+            </RNG>
+            <FA>2019-08-08</FA>
+            <RSAPK>
+                <M>qhejx+ugR/m5/EAPXHguEZYrsOeXZokcgoS/wHfwuD2BuY9Odts0MaS6Ekf/qpNVHGpbitVQyeEIhwf40BCXpw==</M>
+                <E>Aw==</E>
+            </RSAPK>
+            <IDK>100</IDK>
+        </DA>
+        <FRMA algoritmo="SHA1withRSA">caylfS9elvx/Io3SFUi5g9gqUqlnKCgTlWVSrbT67bcxEJWlTdyENFT4eRHKQocle4FAh12QKlO6J4zIv/7dGg==</FRMA>
+    </CAF>
+    <RSASK>-----BEGIN RSA PRIVATE KEY-----
 MIIBOgIBAAJBAKoXo8froEf5ufxAD1x4LhGWK7Dnl2aJHIKEv8B38Lg9gbmPTnbb
 NDGkuhJH/6qTVRxqW4rVUMnhCIcH+NAQl6cCAQMCQHFlF9qdFYVRJqgqtOhQHrZk
 HSCaZO8GEwGt1Sr6oHrSlS8uSDCaH54+E1BZxvNwHO2GHNs6ktz3lklMx3yEJGsC
@@ -23,7 +29,7 @@ ueJNXmQPDg8CIQCD0NWf+hAe0vOgc+YpTlV7XQhRdQhuwAS1g8B//3fdSwIhAMD9
 -----END RSA PRIVATE KEY-----
 </RSASK>
 
-<RSAPUBK>-----BEGIN PUBLIC KEY-----
+    <RSAPUBK>-----BEGIN PUBLIC KEY-----
 MFowDQYJKoZIhvcNAQEBBQADSQAwRgJBAKoXo8froEf5ufxAD1x4LhGWK7Dnl2aJ
 HIKEv8B38Lg9gbmPTnbbNDGkuhJH/6qTVRxqW4rVUMnhCIcH+NAQl6cCAQM=
 -----END PUBLIC KEY-----
