@@ -416,8 +416,13 @@ $set_pruebas = [
     ],
 ];
 
+// solicitar ambiente desarrollo con configuración
+\sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
+echo \sasco\LibreDTE\Sii::wsdl('CrSeed'), "\n";
+echo \sasco\LibreDTE\Sii::wsdl('GetTokenFromSeed'), "\n\n";
+
 // Objetos de Firma y LibroCompraVenta
-$Firma = new \sasco\LibreDTE\FirmaElectronica($config['firma']);
+$Firma = new \sasco\LibreDTE\FirmaElectronica($config);
 $LibroCompraVenta = new \sasco\LibreDTE\Sii\LibroCompraVenta();
 
 // generar cada DTE y agregar su resumen al detalle del libro
@@ -435,4 +440,4 @@ var_dump($track_id);
 
 // si hubo errores mostrar
 foreach (\sasco\LibreDTE\Log::readAll() as $error)
-    echo $error,"\n";
+    echo $error, "\n";

@@ -86,7 +86,7 @@ $caratula = [
     //'RutEnvia' => '11222333-4', // se obtiene de la firma
     'RutReceptor' => '60803000-K',
     'FchResol' => '2014-12-05',
-    'NroResol' => 0,
+    'NroResol' => 80,
 ];
 
 // Objetos de Firma y Folios

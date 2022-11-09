@@ -44,16 +44,16 @@ class Dte extends \sasco\LibreDTE\PDF
     protected $papel_continuo_item_detalle = true; ///< Mostrar detalle en papel continuo
 
     protected $detalle_cols = [
-        'CdgItem' => ['title'=>'Código', 'align'=>'left', 'width'=>20],
-        'NmbItem' => ['title'=>'Item', 'align'=>'left', 'width'=>0],
-        'IndExe' => ['title'=>'IE', 'align'=>'left', 'width'=>'7'],
-        'QtyItem' => ['title'=>'Cant.', 'align'=>'right', 'width'=>15],
-        'UnmdItem' => ['title'=>'Unidad', 'align'=>'left', 'width'=>22],
-        'QtyRef' => ['title'=>'Cant. Ref.', 'align'=>'right', 'width'=>22],
-        'PrcItem' => ['title'=>'P. unitario', 'align'=>'right', 'width'=>22],
-        'DescuentoMonto' => ['title'=>'Descuento', 'align'=>'right', 'width'=>22],
-        'RecargoMonto' => ['title'=>'Recargo', 'align'=>'right', 'width'=>22],
-        'MontoItem' => ['title'=>'Total item', 'align'=>'right', 'width'=>22],
+        'CdgItem' => ['title' => 'Código', 'align' => 'left', 'width' => 20],
+        'NmbItem' => ['title' => 'Item', 'align' => 'left', 'width' => 0],
+        'IndExe' => ['title' => 'IE', 'align' => 'left', 'width' => '7'],
+        'QtyItem' => ['title' => 'Cant.', 'align' => 'right', 'width' => 15],
+        'UnmdItem' => ['title' => 'Unidad', 'align' => 'left', 'width' => 22],
+        'QtyRef' => ['title' => 'Cant. Ref.', 'align' => 'right', 'width' => 22],
+        'PrcItem' => ['title' => 'P. unitario', 'align' => 'right', 'width' => 22],
+        'DescuentoMonto' => ['title' => 'Descuento', 'align' => 'right', 'width' => 22],
+        'RecargoMonto' => ['title' => 'Recargo', 'align' => 'right', 'width' => 22],
+        'MontoItem' => ['title' => 'Total item', 'align' => 'right', 'width' => 22],
     ]; ///< Nombres de columnas detalle, alineación y ancho
 
     public static $papel = [
@@ -162,10 +162,10 @@ class Dte extends \sasco\LibreDTE\PDF
     {
         $this->dte = $dte['Encabezado']['IdDoc']['TipoDTE'];
         $papel_tipo = (int)$this->papelContinuo;
-        $method = 'agregar_papel_'.$papel_tipo;
+        $method = 'agregar_papel_' . $papel_tipo;
         if (!method_exists($this, $method)) {
             $tipo = !empty(self::$papel[$papel_tipo]) ? self::$papel[$papel_tipo] : $papel_tipo;
-            throw new \Exception('Papel de tipo "'.$tipo.'" no está disponible');
+            throw new \Exception('Papel de tipo "' . $tipo . '" no está disponible');
         }
         $this->$method($dte, $timbre);
     }
@@ -193,7 +193,7 @@ class Dte extends \sasco\LibreDTE\PDF
         $this->Ln();
         // datos del documento
         $y = [];
-        $y[] = $this->agregarDatosEmision($dte['Encabezado']['IdDoc'], !empty($dte['Encabezado']['Emisor']['CdgVendedor'])?$dte['Encabezado']['Emisor']['CdgVendedor']:null);
+        $y[] = $this->agregarDatosEmision($dte['Encabezado']['IdDoc'], !empty($dte['Encabezado']['Emisor']['CdgVendedor']) ? $dte['Encabezado']['Emisor']['CdgVendedor'] : null);
         $y[] = $this->agregarReceptor($dte['Encabezado']);
         $this->setY(max($y));
         $this->agregarTraslado(
@@ -242,74 +242,74 @@ class Dte extends \sasco\LibreDTE\PDF
         $this->AddPage('P', [$height ? $height : $this->papel_continuo_alto, $width]);
         $x = 1;
         $y = 5;
-        $this->SetXY($x,$y);
+        $this->SetXY($x, $y);
         // agregar datos del documento
         $this->setFont('', '', 8);
-        $this->MultiTexto(!empty($dte['Encabezado']['Emisor']['RznSoc']) ? $dte['Encabezado']['Emisor']['RznSoc'] : $dte['Encabezado']['Emisor']['RznSocEmisor'], $x, null, '', $width-2);
-        $this->MultiTexto($dte['Encabezado']['Emisor']['RUTEmisor'], $x, null, '', $width-2);
-        $this->MultiTexto('Giro: '.(!empty($dte['Encabezado']['Emisor']['GiroEmis']) ? $dte['Encabezado']['Emisor']['GiroEmis'] : $dte['Encabezado']['Emisor']['GiroEmisor']), $x, null, '', $width-2);
-        $this->MultiTexto($dte['Encabezado']['Emisor']['DirOrigen'].', '.$dte['Encabezado']['Emisor']['CmnaOrigen'], $x, null, '', $width-2);
+        $this->MultiTexto(!empty($dte['Encabezado']['Emisor']['RznSoc']) ? $dte['Encabezado']['Emisor']['RznSoc'] : $dte['Encabezado']['Emisor']['RznSocEmisor'], $x, null, '', $width - 2);
+        $this->MultiTexto($dte['Encabezado']['Emisor']['RUTEmisor'], $x, null, '', $width - 2);
+        $this->MultiTexto('Giro: ' . (!empty($dte['Encabezado']['Emisor']['GiroEmis']) ? $dte['Encabezado']['Emisor']['GiroEmis'] : $dte['Encabezado']['Emisor']['GiroEmisor']), $x, null, '', $width - 2);
+        $this->MultiTexto($dte['Encabezado']['Emisor']['DirOrigen'] . ', ' . $dte['Encabezado']['Emisor']['CmnaOrigen'], $x, null, '', $width - 2);
         if (!empty($dte['Encabezado']['Emisor']['Sucursal'])) {
-            $this->MultiTexto('Sucursal: '.$dte['Encabezado']['Emisor']['Sucursal'], $x, null, '', $width-2);
+            $this->MultiTexto('Sucursal: ' . $dte['Encabezado']['Emisor']['Sucursal'], $x, null, '', $width - 2);
         }
         if (!empty($this->casa_matriz)) {
-            $this->MultiTexto('Casa matriz: '.$this->casa_matriz, $x, null, '', $width-2);
+            $this->MultiTexto('Casa matriz: ' . $this->casa_matriz, $x, null, '', $width - 2);
         }
-        $this->MultiTexto($this->getTipo($dte['Encabezado']['IdDoc']['TipoDTE'], $dte['Encabezado']['IdDoc']['Folio']).' N° '.$dte['Encabezado']['IdDoc']['Folio'], $x, null, '', $width-2);
-        $this->MultiTexto('Fecha: '.date('d/m/Y', strtotime($dte['Encabezado']['IdDoc']['FchEmis'])), $x, null, '', $width-2);
+        $this->MultiTexto($this->getTipo($dte['Encabezado']['IdDoc']['TipoDTE'], $dte['Encabezado']['IdDoc']['Folio']) . ' N° ' . $dte['Encabezado']['IdDoc']['Folio'], $x, null, '', $width - 2);
+        $this->MultiTexto('Fecha: ' . date('d/m/Y', strtotime($dte['Encabezado']['IdDoc']['FchEmis'])), $x, null, '', $width - 2);
         // si no es boleta no nominativa se agregan datos receptor
-        if ($dte['Encabezado']['Receptor']['RUTRecep']!='66666666-6') {
+        if ($dte['Encabezado']['Receptor']['RUTRecep'] != '66666666-6') {
             $this->Ln();
-            $this->MultiTexto('Receptor: '.$dte['Encabezado']['Receptor']['RUTRecep'], $x, null, '', $width-2);
-            $this->MultiTexto($dte['Encabezado']['Receptor']['RznSocRecep'], $x, null, '', $width-2);
+            $this->MultiTexto('Receptor: ' . $dte['Encabezado']['Receptor']['RUTRecep'], $x, null, '', $width - 2);
+            $this->MultiTexto($dte['Encabezado']['Receptor']['RznSocRecep'], $x, null, '', $width - 2);
             if (!empty($dte['Encabezado']['Receptor']['GiroRecep'])) {
-                $this->MultiTexto('Giro: '.$dte['Encabezado']['Receptor']['GiroRecep'], $x, null, '', $width-2);
+                $this->MultiTexto('Giro: ' . $dte['Encabezado']['Receptor']['GiroRecep'], $x, null, '', $width - 2);
             }
             if (!empty($dte['Encabezado']['Receptor']['DirRecep'])) {
-                $this->MultiTexto($dte['Encabezado']['Receptor']['DirRecep'].', '.$dte['Encabezado']['Receptor']['CmnaRecep'], $x, null, '', $width-2);
+                $this->MultiTexto($dte['Encabezado']['Receptor']['DirRecep'] . ', ' . $dte['Encabezado']['Receptor']['CmnaRecep'], $x, null, '', $width - 2);
             }
         }
         $this->Ln();
         // hay un sólo detalle
         if (!isset($dte['Detalle'][0])) {
-            $this->MultiTexto($dte['Detalle']['NmbItem'].': $'.$this->num($dte['Detalle']['MontoItem']), $x, null, '', $width-2);
+            $this->MultiTexto($dte['Detalle']['NmbItem'] . ': $' . $this->num($dte['Detalle']['MontoItem']), $x, null, '', $width - 2);
         }
         // hay más de un detalle
         else {
             foreach ($dte['Detalle'] as $d) {
-                $this->MultiTexto($d['NmbItem'].': $'.$this->num($d['MontoItem']), $x, null, '', $width-2);
+                $this->MultiTexto($d['NmbItem'] . ': $' . $this->num($d['MontoItem']), $x, null, '', $width - 2);
             }
             if (in_array($dte['Encabezado']['IdDoc']['TipoDTE'], [39, 41])) {
-                $this->MultiTexto('TOTAL: $'.$this->num($dte['Encabezado']['Totales']['MntTotal']), $x, null, '', $width-2);
+                $this->MultiTexto('TOTAL: $' . $this->num($dte['Encabezado']['Totales']['MntTotal']), $x, null, '', $width - 2);
             }
         }
         // colocar EXENTO, NETO, IVA y TOTAL si corresponde
         if (!empty($dte['Encabezado']['Totales']['MntExe'])) {
-            $this->MultiTexto('EXENTO: $'.$this->num($dte['Encabezado']['Totales']['MntExe']), $x, null, '', $width-2);
+            $this->MultiTexto('EXENTO: $' . $this->num($dte['Encabezado']['Totales']['MntExe']), $x, null, '', $width - 2);
         }
         if (!empty($dte['Encabezado']['Totales']['MntNeto'])) {
-            $this->MultiTexto('NETO: $'.$this->num($dte['Encabezado']['Totales']['MntNeto']), $x, null, '', $width-2);
+            $this->MultiTexto('NETO: $' . $this->num($dte['Encabezado']['Totales']['MntNeto']), $x, null, '', $width - 2);
         }
         if (!empty($dte['Encabezado']['Totales']['IVA'])) {
-            $this->MultiTexto('IVA: $'.$this->num($dte['Encabezado']['Totales']['IVA']), $x, null, '', $width-2);
+            $this->MultiTexto('IVA: $' . $this->num($dte['Encabezado']['Totales']['IVA']), $x, null, '', $width - 2);
         }
-        $this->MultiTexto('TOTAL: $'.$this->num($dte['Encabezado']['Totales']['MntTotal']), $x, null, '', $width-2);
+        $this->MultiTexto('TOTAL: $' . $this->num($dte['Encabezado']['Totales']['MntTotal']), $x, null, '', $width - 2);
         // agregar acuse de recibo y leyenda cedible
         if ($this->cedible and !in_array($dte['Encabezado']['IdDoc']['TipoDTE'], $this->sinAcuseRecibo)) {
-            $this->agregarAcuseReciboContinuo(-1, $this->y+6, $width+2, 34);
+            $this->agregarAcuseReciboContinuo(-1, $this->y + 6, $width + 2, 34);
             $this->agregarLeyendaDestinoContinuo($dte['Encabezado']['IdDoc']['TipoDTE']);
         }
         // agregar timbre
         if (!empty($dte['Encabezado']['IdDoc']['TermPagoGlosa'])) {
             $this->Ln();
-            $this->MultiTexto('Observación: '.$dte['Encabezado']['IdDoc']['TermPagoGlosa']."\n\n", $x);
+            $this->MultiTexto('Observación: ' . $dte['Encabezado']['IdDoc']['TermPagoGlosa'] . "\n\n", $x);
         }
-        $this->agregarTimbre($timbre, -11, $x, $this->GetY()+6, 55, 6);
+        $this->agregarTimbre($timbre, -11, $x, $this->GetY() + 6, 55, 6);
         // si el alto no se pasó, entonces es con autocálculo, se elimina esta página y se pasa el alto
         // que se logró determinar para crear la página con el alto correcto
         if (!$height) {
             $this->deletePage($this->PageNo());
-            $this->agregar_papel_57($dte, $timbre, $this->getY()+30);
+            $this->agregar_papel_57($dte, $timbre, $this->getY() + 30);
         }
     }
 
@@ -354,20 +354,24 @@ class Dte extends \sasco\LibreDTE\PDF
             $dte['Encabezado']['IdDoc']['TipoDTE'],
             $dte['Encabezado']['IdDoc']['Folio'],
             isset($dte['Encabezado']['Emisor']['CmnaOrigen']) ? $dte['Encabezado']['Emisor']['CmnaOrigen'] : 'Sin comuna', // siempre debería tener comuna
-            $x_start, $y_start, $width-($x_start*4), 10,
-            [0,0,0]
+            $x_start,
+            $y_start,
+            $width - ($x_start * 2),
+            10,
+            [0, 0, 0]
         );
-        $y = $this->agregarEmisor($dte['Encabezado']['Emisor'], $x_start, $y+2, $width-($x_start*45), 8, 9, [0,0,0]);
+        $y = $this->agregarEmisor($dte['Encabezado']['Emisor'], $x_start, $y + 2, $width - ($x_start * 45), 8, 9, [0, 0, 0]);
         // datos del documento
         $this->SetY($y);
         $this->Ln();
         $this->setFont('', '', 8);
-        $this->agregarDatosEmision($dte['Encabezado']['IdDoc'], !empty($dte['Encabezado']['Emisor']['CdgVendedor'])?$dte['Encabezado']['Emisor']['CdgVendedor']:null, $x_start, $offset, false);
+        $this->agregarDatosEmision($dte['Encabezado']['IdDoc'], !empty($dte['Encabezado']['Emisor']['CdgVendedor']) ? $dte['Encabezado']['Emisor']['CdgVendedor'] : null, $x_start, $offset, false);
         $this->agregarReceptor($dte['Encabezado'], $x_start, $offset);
         $this->agregarTraslado(
             !empty($dte['Encabezado']['IdDoc']['IndTraslado']) ? $dte['Encabezado']['IdDoc']['IndTraslado'] : null,
             !empty($dte['Encabezado']['Transporte']) ? $dte['Encabezado']['Transporte'] : null,
-            $x_start, $offset
+            $x_start,
+            $offset
         );
         if (!empty($dte['Referencia'])) {
             $this->agregarReferencia($dte['Referencia'], $x_start, $offset);
@@ -386,20 +390,20 @@ class Dte extends \sasco\LibreDTE\PDF
             $this->agregarPagos($dte['Encabezado']['IdDoc']['MntPagos'], $x_start);
         }
         $OtraMoneda = !empty($dte['Encabezado']['OtraMoneda']) ? $dte['Encabezado']['OtraMoneda'] : null;
-        $this->agregarTotales($dte['Encabezado']['Totales'], $OtraMoneda, $this->y+6, 23, 17);
+        $this->agregarTotales($dte['Encabezado']['Totales'], $OtraMoneda, $this->y + 6, 23, 17);
         // agregar acuse de recibo y leyenda cedible
         if ($this->cedible and !in_array($dte['Encabezado']['IdDoc']['TipoDTE'], $this->sinAcuseRecibo)) {
-            $this->agregarAcuseReciboContinuo(3, $this->y+6, 68, 34);
+            $this->agregarAcuseReciboContinuo(3, $this->y + 6, 68, 34);
             $this->agregarLeyendaDestinoContinuo($dte['Encabezado']['IdDoc']['TipoDTE']);
         }
         // agregar timbre
-        $y = $this->agregarObservacion($dte['Encabezado']['IdDoc'], $x_start, $this->y+6);
-        $this->agregarTimbre($timbre, -10, $x_start, $y+6, 70, 6);
+        $y = $this->agregarObservacion($dte['Encabezado']['IdDoc'], $x_start, $this->y + 6);
+        $this->agregarTimbre($timbre, -10, $x_start, $y + 6, 70, 6);
         // si el alto no se pasó, entonces es con autocálculo, se elimina esta página y se pasa el alto
         // que se logró determinar para crear la página con el alto correcto
         if (!$height) {
             $this->deletePage($this->PageNo());
-            $this->agregar_papel_80($dte, $timbre, $width, $this->getY()+30);
+            $this->agregar_papel_80($dte, $timbre, $width, $this->getY() + 30);
         }
     }
 
@@ -433,19 +437,20 @@ class Dte extends \sasco\LibreDTE\PDF
             2,
             45,
             9,
-            [0,0,0]
+            [0, 0, 0]
         );
-        $y[] = $this->agregarEmisor($dte['Encabezado']['Emisor'], 1, 2, 20, 30, 9, [0,0,0], $y[0]);
+        $y[] = $this->agregarEmisor($dte['Encabezado']['Emisor'], 1, 2, 20, 30, 9, [0, 0, 0], $y[0]);
         $this->SetY(max($y));
         $this->Ln();
         // datos del documento
         $this->setFont('', '', 8);
-        $this->agregarDatosEmision($dte['Encabezado']['IdDoc'], !empty($dte['Encabezado']['Emisor']['CdgVendedor'])?$dte['Encabezado']['Emisor']['CdgVendedor']:null, $x_start, $offset, false);
+        $this->agregarDatosEmision($dte['Encabezado']['IdDoc'], !empty($dte['Encabezado']['Emisor']['CdgVendedor']) ? $dte['Encabezado']['Emisor']['CdgVendedor'] : null, $x_start, $offset, false);
         $this->agregarReceptor($dte['Encabezado'], $x_start, $offset);
         $this->agregarTraslado(
             !empty($dte['Encabezado']['IdDoc']['IndTraslado']) ? $dte['Encabezado']['IdDoc']['IndTraslado'] : null,
             !empty($dte['Encabezado']['Transporte']) ? $dte['Encabezado']['Transporte'] : null,
-            $x_start, $offset
+            $x_start,
+            $offset
         );
         if (!empty($dte['Referencia'])) {
             $this->agregarReferencia($dte['Referencia'], $x_start, $offset);
@@ -464,22 +469,22 @@ class Dte extends \sasco\LibreDTE\PDF
             $this->agregarPagos($dte['Encabezado']['IdDoc']['MntPagos'], $x_start);
         }
         $OtraMoneda = !empty($dte['Encabezado']['OtraMoneda']) ? $dte['Encabezado']['OtraMoneda'] : null;
-        $this->agregarTotales($dte['Encabezado']['Totales'], $OtraMoneda, $this->y+6, 61, 17);
+        $this->agregarTotales($dte['Encabezado']['Totales'], $OtraMoneda, $this->y + 6, 61, 17);
         // agregar observaciones
-        $y = $this->agregarObservacion($dte['Encabezado']['IdDoc'], $x_start, $this->y+6);
+        $y = $this->agregarObservacion($dte['Encabezado']['IdDoc'], $x_start, $this->y + 6);
         // agregar timbre
-        $this->agregarTimbre($timbre, 2, 2, $y+6, 60, 6, 'S');
+        $this->agregarTimbre($timbre, 2, 2, $y + 6, 60, 6, 'S');
         // agregar acuse de recibo y leyenda cedible
         if ($this->cedible and !in_array($dte['Encabezado']['IdDoc']['TipoDTE'], $this->sinAcuseRecibo)) {
-            $this->agregarAcuseRecibo(63, $y+6, 45, 40, 15);
+            $this->agregarAcuseRecibo(63, $y + 6, 45, 40, 15);
             $this->setFont('', 'B', 8);
-            $this->Texto('CEDIBLE'.($dte['Encabezado']['IdDoc']['TipoDTE']==52?' CON SU FACTURA':''), $x_start, $this->y+1, 'L');
+            $this->Texto('CEDIBLE' . ($dte['Encabezado']['IdDoc']['TipoDTE'] == 52 ? ' CON SU FACTURA' : ''), $x_start, $this->y + 1, 'L');
         }
         // si el alto no se pasó, entonces es con autocálculo, se elimina esta página y se pasa el alto
         // que se logró determinar para crear la página con el alto correcto
         if (!$height) {
             $this->deletePage($this->PageNo());
-            $this->agregar_papel_110($dte, $timbre, $this->getY()+30);
+            $this->agregar_papel_110($dte, $timbre, $this->getY() + 30);
         }
     }
 
@@ -505,15 +510,15 @@ class Dte extends \sasco\LibreDTE\PDF
         if (isset($this->logo)) {
             // logo centrado (papel continuo)
             if (!empty($this->logo['posicion']) and $this->logo['posicion'] == 'C') {
-                $logo_w = null;
-                $logo_y = null;
+                $logo_w = 60;
+                $logo_y = 30;
                 $logo_position = 'C';
                 $logo_next_pointer = 'N';
             }
             // logo a la derecha (posicion=0) o arriba (posicion=1)
             else if (empty($this->logo['posicion']) or $this->logo['posicion'] == 1) {
                 $logo_w = !$this->logo['posicion'] ? $w_img : null;
-                $logo_y = $this->logo['posicion'] ? $w_img/2 : null;
+                $logo_y = $this->logo['posicion'] ? $w_img / 2 : null;
                 $logo_position = '';
                 $logo_next_pointer = 'T';
             }
@@ -532,7 +537,7 @@ class Dte extends \sasco\LibreDTE\PDF
                 $logo_w,
                 $logo_y,
                 'PNG',
-                (isset($emisor['url'])?$emisor['url']:''),
+                (isset($emisor['url']) ? $emisor['url'] : ''),
                 $logo_next_pointer,
                 2,
                 300,
@@ -542,33 +547,33 @@ class Dte extends \sasco\LibreDTE\PDF
                 $w += 40;
             } else {
                 if ($this->logo['posicion']) {
-                    $this->SetY($this->y + ($w_img/2));
+                    $this->SetY($this->y + ($w_img / 2));
                     $w += 40;
                 } else {
-                    $x = $this->x+3;
+                    $x = $this->x + 3;
                 }
             }
         } else {
-            $this->y = $y-2;
+            $this->y = $y - 2;
             $w += 40;
         }
         // agregar datos del emisor
         if ($agregarDatosEmisor) {
             $this->setFont('', 'B', $font_size ? $font_size : 14);
-            $this->SetTextColorArray($color===null?[32, 92, 144]:$color);
-            $this->MultiTexto(!empty($emisor['RznSoc']) ? $emisor['RznSoc'] : $emisor['RznSocEmisor'], $x, $this->y+2, 'L', ($h_folio and $h_folio < $this->getY()) ? $w_all : $w);
+            $this->SetTextColorArray($color === null ? [32, 92, 144] : $color);
+            $this->MultiTexto(!empty($emisor['RznSoc']) ? $emisor['RznSoc'] : $emisor['RznSocEmisor'], $x, $this->y + 2, 'L', ($h_folio and $h_folio < $this->getY()) ? $w_all : $w);
             $this->setFont('', 'B', $font_size ? $font_size : 9);
-            $this->SetTextColorArray([0,0,0]);
+            $this->SetTextColorArray([0, 0, 0]);
             $this->MultiTexto(!empty($emisor['GiroEmis']) ? $emisor['GiroEmis'] : $emisor['GiroEmisor'], $x, $this->y, 'L', ($h_folio and $h_folio < $this->getY()) ? $w_all : $w);
             $direccion = !empty($emisor['DirOrigen']) ? $emisor['DirOrigen'] : null;
             $comuna = !empty($emisor['CmnaOrigen']) ? $emisor['CmnaOrigen'] : null;
             $ciudad = !empty($emisor['CiudadOrigen']) ? $emisor['CiudadOrigen'] : \sasco\LibreDTE\Chile::getCiudad($comuna);
-            $this->MultiTexto($direccion.($comuna?(', '.$comuna):'').($ciudad?(', '.$ciudad):''), $x, $this->y, 'L', ($h_folio and $h_folio < $this->getY()) ? $w_all : $w);
+            $this->MultiTexto($direccion . ($comuna ? (', ' . $comuna) : '') . ($ciudad ? (', ' . $ciudad) : ''), $x, $this->y, 'L', ($h_folio and $h_folio < $this->getY()) ? $w_all : $w);
             if (!empty($emisor['Sucursal'])) {
-                $this->MultiTexto('Sucursal: '.$emisor['Sucursal'], $x, $this->y, 'L', ($h_folio and $h_folio < $this->getY()) ? $w_all : $w);
+                $this->MultiTexto('Sucursal: ' . $emisor['Sucursal'], $x, $this->y, 'L', ($h_folio and $h_folio < $this->getY()) ? $w_all : $w);
             }
             if (!empty($this->casa_matriz)) {
-                $this->MultiTexto('Casa matriz: '.$this->casa_matriz, $x, $this->y, 'L', ($h_folio and $h_folio < $this->getY()) ? $w_all : $w);
+                $this->MultiTexto('Casa matriz: ' . $this->casa_matriz, $x, $this->y, 'L', ($h_folio and $h_folio < $this->getY()) ? $w_all : $w);
             }
             $contacto = [];
             if (!empty($emisor['Telefono'])) {
@@ -612,26 +617,26 @@ class Dte extends \sasco\LibreDTE\PDF
      */
     protected function agregarFolio($rut, $tipo, $folio, $sucursal_sii = null, $x = 130, $y = 15, $w = 70, $font_size = null, array $color = null)
     {
-        if ($color===null) {
-            $color = $tipo ? ($tipo==52 ? [0,172,140] : [255,0,0]) : [0,0,0];
+        if ($color === null) {
+            $color = $tipo ? ($tipo == 52 ? [0, 172, 140] : [255, 0, 0]) : [0, 0, 0];
         }
         $this->SetTextColorArray($color);
         // colocar rut emisor, glosa documento y folio
         list($rut, $dv) = explode('-', $rut);
-        $this->setFont ('', 'B', $font_size ? $font_size : 15);
-        $this->MultiTexto('R.U.T.: '.$this->num($rut).'-'.$dv, $x, $y+4, 'C', $w);
+        $this->setFont('', 'B', $font_size ? $font_size : 15);
+        $this->MultiTexto('R.U.T.: ' . $this->num($rut) . '-' . $dv, $x, $y + 4, 'C', $w);
         $this->setFont('', 'B', $font_size ? $font_size : 12);
         $this->MultiTexto($this->getTipo($tipo, $folio), $x, null, 'C', $w);
         $this->setFont('', 'B', $font_size ? $font_size : 15);
-        $this->MultiTexto('N° '.$folio, $x, null, 'C', $w);
+        $this->MultiTexto('N° ' . $folio, $x, null, 'C', $w);
         // dibujar rectángulo rojo
-        $this->Rect($x, $y, $w, round($this->getY()-$y+3), 'D', ['all' => ['width' => 0.5, 'color' => $color]]);
+        $this->Rect($x, $y, $w, round($this->getY() - $y + 3), 'D', ['all' => ['width' => 0.5, 'color' => $color]]);
         // colocar unidad del SII
         $this->setFont('', 'B', $font_size ? $font_size : 10);
         if ($tipo) {
-            $this->Texto('S.I.I. - '.\sasco\LibreDTE\Sii::getDireccionRegional($sucursal_sii), $x, $this->getY()+4, 'C', $w);
+            $this->Texto('S.I.I. - ' . \sasco\LibreDTE\Sii::getDireccionRegional($sucursal_sii), $x, $this->getY() + 4, 'C', $w);
         }
-        $this->SetTextColorArray([0,0,0]);
+        $this->SetTextColorArray([0, 0, 0]);
         $this->Ln();
         return $this->y;
     }
@@ -647,7 +652,7 @@ class Dte extends \sasco\LibreDTE\PDF
     protected function agregarDatosEmision($IdDoc, $CdgVendedor, $x = 10, $offset = 22, $mostrar_dia = true)
     {
         // si es hoja carta
-        if ($x==10) {
+        if ($x == 10) {
             $y = $this->GetY();
             // fecha emisión
             $this->setFont('', 'B', null);
@@ -655,27 +660,27 @@ class Dte extends \sasco\LibreDTE\PDF
             $this->setFont('', '', null);
             // período facturación
             if (!empty($IdDoc['PeriodoDesde']) and !empty($IdDoc['PeriodoHasta'])) {
-                $this->MultiTexto('Período del '.date('d/m/y', strtotime($IdDoc['PeriodoDesde'])).' al '.date('d/m/y', strtotime($IdDoc['PeriodoHasta'])), $x, null, 'R');
+                $this->MultiTexto('Período del ' . date('d/m/y', strtotime($IdDoc['PeriodoDesde'])) . ' al ' . date('d/m/y', strtotime($IdDoc['PeriodoHasta'])), $x, null, 'R');
             }
             // pago anticicado
             if (!empty($IdDoc['FchCancel'])) {
-                $this->MultiTexto('Pagado el '.$this->date($IdDoc['FchCancel'], false), $x, null, 'R');
+                $this->MultiTexto('Pagado el ' . $this->date($IdDoc['FchCancel'], false), $x, null, 'R');
             }
             // fecha vencimiento
             if (!empty($IdDoc['FchVenc'])) {
-                $this->MultiTexto('Vence el '.$this->date($IdDoc['FchVenc'], false), $x, null, 'R');
+                $this->MultiTexto('Vence el ' . $this->date($IdDoc['FchVenc'], false), $x, null, 'R');
             }
             // forma de pago nacional
             if (!empty($IdDoc['FmaPago'])) {
-                $this->MultiTexto('Venta: '.strtolower($this->formas_pago[$IdDoc['FmaPago']]), $x, null, 'R');
+                $this->MultiTexto('Venta: ' . strtolower($this->formas_pago[$IdDoc['FmaPago']]), $x, null, 'R');
             }
             // forma de pago exportación
             if (!empty($IdDoc['FmaPagExp'])) {
-                $this->MultiTexto('Venta: '.strtolower($this->formas_pago_exportacion[$IdDoc['FmaPagExp']]), $x, null, 'R');
+                $this->MultiTexto('Venta: ' . strtolower($this->formas_pago_exportacion[$IdDoc['FmaPagExp']]), $x, null, 'R');
             }
             // vendedor
             if (!empty($CdgVendedor)) {
-                $this->MultiTexto($this->etiquetas['CdgVendedor'].': '.$CdgVendedor, $x, null, 'R');
+                $this->MultiTexto($this->etiquetas['CdgVendedor'] . ': ' . $CdgVendedor, $x, null, 'R');
             }
             $y_end = $this->GetY();
             $this->SetY($y);
@@ -685,40 +690,40 @@ class Dte extends \sasco\LibreDTE\PDF
             // fecha de emisión
             $this->setFont('', 'B', null);
             $this->Texto('Emisión', $x);
-            $this->Texto(':', $x+$offset);
+            $this->Texto(':', $x + $offset);
             $this->setFont('', '', null);
-            $this->MultiTexto($this->date($IdDoc['FchEmis'], $mostrar_dia), $x+$offset+2);
+            $this->MultiTexto($this->date($IdDoc['FchEmis'], $mostrar_dia), $x + $offset + 2);
             // forma de pago nacional
             if (!empty($IdDoc['FmaPago'])) {
                 $this->setFont('', 'B', null);
                 $this->Texto('Venta', $x);
-                $this->Texto(':', $x+$offset);
+                $this->Texto(':', $x + $offset);
                 $this->setFont('', '', null);
-                $this->MultiTexto($this->formas_pago[$IdDoc['FmaPago']], $x+$offset+2);
+                $this->MultiTexto($this->formas_pago[$IdDoc['FmaPago']], $x + $offset + 2);
             }
             // forma de pago exportación
             if (!empty($IdDoc['FmaPagExp'])) {
                 $this->setFont('', 'B', null);
                 $this->Texto('Venta', $x);
-                $this->Texto(':', $x+$offset);
+                $this->Texto(':', $x + $offset);
                 $this->setFont('', '', null);
-                $this->MultiTexto($this->formas_pago_exportacion[$IdDoc['FmaPagExp']], $x+$offset+2);
+                $this->MultiTexto($this->formas_pago_exportacion[$IdDoc['FmaPagExp']], $x + $offset + 2);
             }
             // pago anticicado
             if (!empty($IdDoc['FchCancel'])) {
                 $this->setFont('', 'B', null);
                 $this->Texto('Pagado el', $x);
-                $this->Texto(':', $x+$offset);
+                $this->Texto(':', $x + $offset);
                 $this->setFont('', '', null);
-                $this->MultiTexto($this->date($IdDoc['FchCancel'], $mostrar_dia), $x+$offset+2);
+                $this->MultiTexto($this->date($IdDoc['FchCancel'], $mostrar_dia), $x + $offset + 2);
             }
             // fecha vencimiento
             if (!empty($IdDoc['FchVenc'])) {
                 $this->setFont('', 'B', null);
                 $this->Texto('Vence el', $x);
-                $this->Texto(':', $x+$offset);
+                $this->Texto(':', $x + $offset);
                 $this->setFont('', '', null);
-                $this->MultiTexto($this->date($IdDoc['FchVenc'], $mostrar_dia), $x+$offset+2);
+                $this->MultiTexto($this->date($IdDoc['FchVenc'], $mostrar_dia), $x + $offset + 2);
             }
             $y_end = $this->GetY();
         }
@@ -735,51 +740,50 @@ class Dte extends \sasco\LibreDTE\PDF
     protected function agregarReceptor(array $Encabezado, $x = 10, $offset = 22)
     {
         $receptor = $Encabezado['Receptor'];
-        if (!empty($receptor['RUTRecep']) and $receptor['RUTRecep']!='66666666-6') {
+        if (!empty($receptor['RUTRecep']) and $receptor['RUTRecep'] != '66666666-6') {
             list($rut, $dv) = explode('-', $receptor['RUTRecep']);
             $this->setFont('', 'B', null);
             $this->Texto(in_array($this->dte, [39, 41]) ? 'R.U.N.' : 'R.U.T.', $x);
-            $this->Texto(':', $x+$offset);
+            $this->Texto(':', $x + $offset);
             $this->setFont('', '', null);
-            $this->MultiTexto($this->num($rut).'-'.$dv, $x+$offset+2);
+            $this->MultiTexto($this->num($rut) . '-' . $dv, $x + $offset + 2);
         }
         if (!empty($receptor['RznSocRecep'])) {
             $this->setFont('', 'B', null);
-            $this->Texto(in_array($this->dte, [39, 41]) ? 'Nombre' : ($x==10?'Razón social':'Razón soc.'), $x);
-            $this->Texto(':', $x+$offset);
+            $this->Texto(in_array($this->dte, [39, 41]) ? 'Nombre' : ($x == 10 ? 'Razón social' : 'Razón soc.'), $x);
+            $this->Texto(':', $x + $offset);
             $this->setFont('', '', null);
-            $this->MultiTexto($receptor['RznSocRecep'], $x+$offset+2, null, '', $x==10?105:0);
+            $this->MultiTexto($receptor['RznSocRecep'], $x + $offset + 2, null, '', $x == 10 ? 105 : 0);
         }
         if (!empty($receptor['GiroRecep'])) {
             $this->setFont('', 'B', null);
             $this->Texto('Giro', $x);
-            $this->Texto(':', $x+$offset);
+            $this->Texto(':', $x + $offset);
             $this->setFont('', '', null);
-            $this->MultiTexto($receptor['GiroRecep'], $x+$offset+2);
+            $this->MultiTexto($receptor['GiroRecep'], $x + $offset + 2);
         }
         if (!empty($receptor['DirRecep'])) {
             $this->setFont('', 'B', null);
             $this->Texto('Dirección', $x);
-            $this->Texto(':', $x+$offset);
+            $this->Texto(':', $x + $offset);
             $this->setFont('', '', null);
-            $ciudad = !empty($receptor['CiudadRecep']) ? $receptor['CiudadRecep'] : (
-                !empty($receptor['CmnaRecep']) ? \sasco\LibreDTE\Chile::getCiudad($receptor['CmnaRecep']) : ''
+            $ciudad = !empty($receptor['CiudadRecep']) ? $receptor['CiudadRecep'] : (!empty($receptor['CmnaRecep']) ? \sasco\LibreDTE\Chile::getCiudad($receptor['CmnaRecep']) : ''
             );
-            $this->MultiTexto($receptor['DirRecep'].(!empty($receptor['CmnaRecep'])?(', '.$receptor['CmnaRecep']):'').($ciudad?(', '.$ciudad):''), $x+$offset+2);
+            $this->MultiTexto($receptor['DirRecep'] . (!empty($receptor['CmnaRecep']) ? (', ' . $receptor['CmnaRecep']) : '') . ($ciudad ? (', ' . $ciudad) : ''), $x + $offset + 2);
         }
         if (!empty($receptor['Extranjero']['Nacionalidad'])) {
             $this->setFont('', 'B', null);
             $this->Texto('Nacionalidad', $x);
-            $this->Texto(':', $x+$offset);
+            $this->Texto(':', $x + $offset);
             $this->setFont('', '', null);
-            $this->MultiTexto(\sasco\LibreDTE\Sii\Aduana::getNacionalidad($receptor['Extranjero']['Nacionalidad']), $x+$offset+2);
+            $this->MultiTexto(\sasco\LibreDTE\Sii\Aduana::getNacionalidad($receptor['Extranjero']['Nacionalidad']), $x + $offset + 2);
         }
         if (!empty($receptor['Extranjero']['NumId'])) {
             $this->setFont('', 'B', null);
             $this->Texto('N° ID extranj.', $x);
-            $this->Texto(':', $x+$offset);
+            $this->Texto(':', $x + $offset);
             $this->setFont('', '', null);
-            $this->MultiTexto($receptor['Extranjero']['NumId'], $x+$offset+2);
+            $this->MultiTexto($receptor['Extranjero']['NumId'], $x + $offset + 2);
         }
         $contacto = [];
         if (!empty($receptor['Contacto']))
@@ -789,24 +793,24 @@ class Dte extends \sasco\LibreDTE\PDF
         if (!empty($contacto)) {
             $this->setFont('', 'B', null);
             $this->Texto('Contacto', $x);
-            $this->Texto(':', $x+$offset);
+            $this->Texto(':', $x + $offset);
             $this->setFont('', '', null);
-            $this->MultiTexto(implode(' / ', $contacto), $x+$offset+2);
+            $this->MultiTexto(implode(' / ', $contacto), $x + $offset + 2);
         }
         if (!empty($Encabezado['RUTSolicita'])) {
             list($rut, $dv) = explode('-', $Encabezado['RUTSolicita']);
             $this->setFont('', 'B', null);
             $this->Texto('RUT solicita', $x);
-            $this->Texto(':', $x+$offset);
+            $this->Texto(':', $x + $offset);
             $this->setFont('', '', null);
-            $this->MultiTexto($this->num($rut).'-'.$dv, $x+$offset+2);
+            $this->MultiTexto($this->num($rut) . '-' . $dv, $x + $offset + 2);
         }
         if (!empty($receptor['CdgIntRecep'])) {
             $this->setFont('', 'B', null);
             $this->Texto('Cód. recep.', $x);
-            $this->Texto(':', $x+$offset);
+            $this->Texto(':', $x + $offset);
             $this->setFont('', '', null);
-            $this->MultiTexto($receptor['CdgIntRecep'], $x+$offset+2, null, '', $x==10?105:0);
+            $this->MultiTexto($receptor['CdgIntRecep'], $x + $offset + 2, null, '', $x == 10 ? 105 : 0);
         }
         return $this->GetY();
     }
@@ -825,65 +829,65 @@ class Dte extends \sasco\LibreDTE\PDF
         if ($IndTraslado) {
             $this->setFont('', 'B', null);
             $this->Texto('Tipo oper.', $x);
-            $this->Texto(':', $x+$offset);
+            $this->Texto(':', $x + $offset);
             $this->setFont('', '', null);
-            $this->MultiTexto($this->traslados[$IndTraslado], $x+$offset+2);
+            $this->MultiTexto($this->traslados[$IndTraslado], $x + $offset + 2);
         }
         // agregar información de transporte
         if ($Transporte) {
             $transporte = '';
             if (!empty($Transporte['DirDest']) and !empty($Transporte['CmnaDest'])) {
-                $transporte .= 'a '.$Transporte['DirDest'].', '.$Transporte['CmnaDest'];
+                $transporte .= 'a ' . $Transporte['DirDest'] . ', ' . $Transporte['CmnaDest'];
             }
             if (!empty($Transporte['RUTTrans']))
-                $transporte .= ' por '.$Transporte['RUTTrans'];
+                $transporte .= ' por ' . $Transporte['RUTTrans'];
             if (!empty($Transporte['Patente']))
-                $transporte .= ' en vehículo '.$Transporte['Patente'];
+                $transporte .= ' en vehículo ' . $Transporte['Patente'];
             if (isset($Transporte['Chofer']) and is_array($Transporte['Chofer'])) {
                 if (!empty($Transporte['Chofer']['NombreChofer'])) {
-                    $transporte .= ' con chofer '.$Transporte['Chofer']['NombreChofer'];
+                    $transporte .= ' con chofer ' . $Transporte['Chofer']['NombreChofer'];
                 }
                 if (!empty($Transporte['Chofer']['RUTChofer'])) {
-                    $transporte .= ' ('.$Transporte['Chofer']['RUTChofer'].')';
+                    $transporte .= ' (' . $Transporte['Chofer']['RUTChofer'] . ')';
                 }
             }
             if ($transporte) {
                 $this->setFont('', 'B', null);
                 $this->Texto('Traslado', $x);
-                $this->Texto(':', $x+$offset);
+                $this->Texto(':', $x + $offset);
                 $this->setFont('', '', null);
-                $this->MultiTexto(ucfirst(trim($transporte)), $x+$offset+2);
+                $this->MultiTexto(ucfirst(trim($transporte)), $x + $offset + 2);
             }
         }
         // agregar información de aduana
         if (!empty($Transporte['Aduana']) and is_array($Transporte['Aduana'])) {
             $col = 0;
             foreach ($Transporte['Aduana'] as $tag => $codigo) {
-                if ($codigo===false) {
+                if ($codigo === false) {
                     continue;
                 }
                 $glosa = \sasco\LibreDTE\Sii\Aduana::getGlosa($tag);
                 $valor = \sasco\LibreDTE\Sii\Aduana::getValor($tag, $codigo);
-                if ($glosa!==false and $valor!==false) {
-                    if ($tag=='TipoBultos' and $col) {
-                        $col = abs($col-110);
+                if ($glosa !== false and $valor !== false) {
+                    if ($tag == 'TipoBultos' and $col) {
+                        $col = abs($col - 110);
                         $this->Ln();
                     }
                     /*if (in_array($tag, ['CodClauVenta', 'CodViaTransp', 'CodPtoEmbarque', 'Tara', 'MntFlete', 'CodPaisRecep']) and $col) {
                         $col = 0;
 		    }*/
                     $this->setFont('', 'B', null);
-                    $this->Texto($glosa, $x+$col);
-                    $this->Texto(':', $x+$offset+$col);
+                    $this->Texto($glosa, $x + $col);
+                    $this->Texto(':', $x + $offset + $col);
                     $this->setFont('', '', null);
-                    $this->Texto($valor, $x+$offset+2+$col);
-                    if ($tag=='TipoBultos') {
-                        $col = abs($col-110);
+                    $this->Texto($valor, $x + $offset + 2 + $col);
+                    if ($tag == 'TipoBultos') {
+                        $col = abs($col - 110);
                     }
                     if ($col) {
                         $this->Ln();
                     }
-                    $col = abs($col-110);
+                    $col = abs($col - 110);
                 }
             }
             if ($col) {
@@ -903,29 +907,29 @@ class Dte extends \sasco\LibreDTE\PDF
     {
         if (!isset($referencias[0]))
             $referencias = [$referencias];
-        foreach($referencias as $r) {
-            $texto = $r['NroLinRef'].' - ';
+        foreach ($referencias as $r) {
+            $texto = $r['NroLinRef'] . ' - ';
             if (!empty($r['TpoDocRef'])) {
-                $texto .= $this->getTipo($r['TpoDocRef']).' ';
+                $texto .= $this->getTipo($r['TpoDocRef']) . ' ';
             }
             if (!empty($r['FolioRef'])) {
                 if (is_numeric($r['FolioRef'])) {
-                    $texto .= ' N° '.$r['FolioRef'].' ';
+                    $texto .= ' N° ' . $r['FolioRef'] . ' ';
                 } else {
-                    $texto .= ' '.$r['FolioRef'].' ';
+                    $texto .= ' ' . $r['FolioRef'] . ' ';
                 }
             }
             if (!empty($r['FchRef'])) {
-                $texto .= 'del '.date('d/m/Y', strtotime($r['FchRef']));
+                $texto .= 'del ' . date('d/m/Y', strtotime($r['FchRef']));
             }
-            if (isset($r['RazonRef']) and $r['RazonRef']!==false) {
-                $texto = $texto.': '.$r['RazonRef'];
+            if (isset($r['RazonRef']) and $r['RazonRef'] !== false) {
+                $texto = $texto . ': ' . $r['RazonRef'];
             }
             $this->setFont('', 'B', null);
             $this->Texto('Referencia', $x);
-            $this->Texto(':', $x+$offset);
+            $this->Texto(':', $x + $offset);
             $this->setFont('', '', null);
-            $this->MultiTexto($texto, $x+$offset+2);
+            $this->MultiTexto($texto, $x + $offset + 2);
         }
     }
 
@@ -963,46 +967,46 @@ class Dte extends \sasco\LibreDTE\PDF
             }
             // quitar columnas
             foreach ($item as $col => $valor) {
-                if ($col=='DscItem' and !empty($item['DscItem'])) {
-                    $item['NmbItem'] .= !$this->item_detalle_posicion ? ($html?'<br/>':"\n") : ': ';
+                if ($col == 'DscItem' and !empty($item['DscItem'])) {
+                    $item['NmbItem'] .= !$this->item_detalle_posicion ? ($html ? '<br/>' : "\n") : ': ';
                     $item['DscItem'] = $html ? str_replace("\n", '<br/>', $item['DscItem']) : str_replace(['<br/>', '<br>'], "\n", $item['DscItem']);
                     if ($html) {
-                        $item['NmbItem'] .= '<span style="font-size:0.7em">'.$item['DscItem'].'</span>';
+                        $item['NmbItem'] .= '<span style="font-size:0.7em">' . $item['DscItem'] . '</span>';
                     } else {
                         $item['NmbItem'] .= $item['DscItem'];
                     }
                 }
-                if ($col=='Subcantidad' and !empty($item['Subcantidad'])) {
+                if ($col == 'Subcantidad' and !empty($item['Subcantidad'])) {
                     //$item['NmbItem'] .= $html ? '<br/>' : "\n";
                     if (!isset($item['Subcantidad'][0])) {
                         $item['Subcantidad'] = [$item['Subcantidad']];
                     }
                     foreach ($item['Subcantidad'] as $Subcantidad) {
                         if ($html) {
-                            $item['NmbItem'] .= '<br/><span style="font-size:0.7em">  - Subcantidad: '.$Subcantidad['SubQty'].' '.$Subcantidad['SubCod'].'</span>';
+                            $item['NmbItem'] .= '<br/><span style="font-size:0.7em">  - Subcantidad: ' . $Subcantidad['SubQty'] . ' ' . $Subcantidad['SubCod'] . '</span>';
                         } else {
-                            $item['NmbItem'] .= "\n".'  - Subcantidad: '.$Subcantidad['SubQty'].' '.$Subcantidad['SubCod'];
+                            $item['NmbItem'] .= "\n" . '  - Subcantidad: ' . $Subcantidad['SubQty'] . ' ' . $Subcantidad['SubCod'];
                         }
                     }
                 }
-                if ($col=='UnmdRef' and !empty($item['UnmdRef']) and !empty($item['QtyRef'])) {
-                    $item['QtyRef'] .= ' '.$item['UnmdRef'];
+                if ($col == 'UnmdRef' and !empty($item['UnmdRef']) and !empty($item['QtyRef'])) {
+                    $item['QtyRef'] .= ' ' . $item['UnmdRef'];
                 }
-                if ($col=='DescuentoPct' and !empty($item['DescuentoPct'])) {
-                    $item['DescuentoMonto'] = $item['DescuentoPct'].'%';
+                if ($col == 'DescuentoPct' and !empty($item['DescuentoPct'])) {
+                    $item['DescuentoMonto'] = $item['DescuentoPct'] . '%';
                 }
-                if ($col=='RecargoPct' and !empty($item['RecargoPct'])) {
-                    $item['RecargoMonto'] = $item['RecargoPct'].'%';
+                if ($col == 'RecargoPct' and !empty($item['RecargoPct'])) {
+                    $item['RecargoMonto'] = $item['RecargoPct'] . '%';
                 }
-                if (!in_array($col, $titulos_keys) or ($dte_exento and $col=='IndExe')) {
+                if (!in_array($col, $titulos_keys) or ($dte_exento and $col == 'IndExe')) {
                     unset($item[$col]);
                 }
             }
             // ajustes a IndExe
             if (isset($item['IndExe'])) {
-                if ($item['IndExe']==1) {
+                if ($item['IndExe'] == 1) {
                     $item['IndExe'] = 'EX';
-                } else if ($item['IndExe']==2) {
+                } else if ($item['IndExe'] == 2) {
                     $item['IndExe'] = 'NF';
                 }
             }
@@ -1035,7 +1039,7 @@ class Dte extends \sasco\LibreDTE\PDF
             }
         }
         // opciones
-        $options = ['align'=>[]];
+        $options = ['align' => []];
         $i = 0;
         foreach ($this->detalle_cols as $info) {
             if (isset($info['width'])) {
@@ -1064,49 +1068,49 @@ class Dte extends \sasco\LibreDTE\PDF
         if (!$offsets) {
             $offsets = [1, 15, 35, 45];
         }
-        $this->SetY($this->getY()+1);
+        $this->SetY($this->getY() + 1);
         $p1x = $x;
         $p1y = $this->y;
         $p2x = $this->getPageWidth() - 2;
         $p2y = $p1y;  // Use same y for a straight line
-        $style = array('width' => 0.2,'color' => array(0, 0, 0));
+        $style = array('width' => 0.2, 'color' => array(0, 0, 0));
         $this->Line($p1x, $p1y, $p2x, $p2y, $style);
-        $this->Texto($this->detalle_cols['NmbItem']['title'], $x+$offsets[0], $this->y, ucfirst($this->detalle_cols['NmbItem']['align'][0]), $this->detalle_cols['NmbItem']['width']);
-        $this->Texto($this->detalle_cols['PrcItem']['title'], $x+$offsets[1], $this->y, ucfirst($this->detalle_cols['PrcItem']['align'][0]), $this->detalle_cols['PrcItem']['width']);
-        $this->Texto($this->detalle_cols['QtyItem']['title'], $x+$offsets[2], $this->y, ucfirst($this->detalle_cols['QtyItem']['align'][0]), $this->detalle_cols['QtyItem']['width']);
-        $this->Texto($this->detalle_cols['MontoItem']['title'], $x+$offsets[3], $this->y, ucfirst($this->detalle_cols['MontoItem']['align'][0]), $this->detalle_cols['MontoItem']['width']);
-        $this->Line($p1x, $p1y+4, $p2x, $p2y+4, $style);
+        $this->Texto($this->detalle_cols['NmbItem']['title'], $x + $offsets[0], $this->y, ucfirst($this->detalle_cols['NmbItem']['align'][0]), $this->detalle_cols['NmbItem']['width']);
+        $this->Texto($this->detalle_cols['PrcItem']['title'], $x + $offsets[1], $this->y, ucfirst($this->detalle_cols['PrcItem']['align'][0]), $this->detalle_cols['PrcItem']['width']);
+        $this->Texto($this->detalle_cols['QtyItem']['title'], $x + $offsets[2], $this->y, ucfirst($this->detalle_cols['QtyItem']['align'][0]), $this->detalle_cols['QtyItem']['width']);
+        $this->Texto($this->detalle_cols['MontoItem']['title'], $x + $offsets[3], $this->y, ucfirst($this->detalle_cols['MontoItem']['align'][0]), $this->detalle_cols['MontoItem']['width']);
+        $this->Line($p1x, $p1y + 4, $p2x, $p2y + 4, $style);
         if (!isset($detalle[0])) {
             $detalle = [$detalle];
         }
         // mostrar items
-        $this->SetY($this->getY()+2);
-        foreach($detalle as  &$d) {
+        $this->SetY($this->getY() + 2);
+        foreach ($detalle as  &$d) {
             // nombre y descripción del item
             $item = $d['NmbItem'];
             if ($this->papel_continuo_item_detalle and !empty($d['DscItem'])) {
-                $item .= ': '.$d['DscItem'];
+                $item .= ': ' . $d['DscItem'];
             }
-            $this->MultiTexto($item, $x+$offsets[0], $this->y+4, ucfirst($this->detalle_cols['NmbItem']['align'][0]), $this->detalle_cols['NmbItem']['width']);
+            $this->MultiTexto($item, $x + $offsets[0], $this->y + 4, ucfirst($this->detalle_cols['NmbItem']['align'][0]), $this->detalle_cols['NmbItem']['width']);
             // descuento
             if (!empty($d['DescuentoPct']) or !empty($d['DescuentoMonto'])) {
                 if (!empty($d['DescuentoPct'])) {
-                    $descuento = (is_numeric($d['DescuentoPct']) ? $this->num($d['DescuentoPct']) : $d['DescuentoPct']).'%';
+                    $descuento = (is_numeric($d['DescuentoPct']) ? $this->num($d['DescuentoPct']) : $d['DescuentoPct']) . '%';
                 } else {
                     $descuento = is_numeric($d['DescuentoMonto']) ? $this->num($d['DescuentoMonto']) : $d['DescuentoMonto'];
                 }
-                $this->Texto('Desc.: '.$descuento, $x+$offsets[0], $this->y, ucfirst($this->detalle_cols['NmbItem']['align'][0]), $this->detalle_cols['NmbItem']['width']);
+                $this->Texto('Desc.: ' . $descuento, $x + $offsets[0], $this->y, ucfirst($this->detalle_cols['NmbItem']['align'][0]), $this->detalle_cols['NmbItem']['width']);
             }
             // precio y cantidad
             if (isset($d['PrcItem'])) {
-                $this->Texto(is_numeric($d['PrcItem']) ? $this->num($d['PrcItem']) : $d['PrcItem'], $x+$offsets[1], $this->y, ucfirst($this->detalle_cols['PrcItem']['align'][0]), $this->detalle_cols['PrcItem']['width']);
+                $this->Texto(is_numeric($d['PrcItem']) ? $this->num($d['PrcItem']) : $d['PrcItem'], $x + $offsets[1], $this->y, ucfirst($this->detalle_cols['PrcItem']['align'][0]), $this->detalle_cols['PrcItem']['width']);
             }
             if (isset($d['QtyItem'])) {
-                $this->Texto($this->num($d['QtyItem']), $x+$offsets[2], $this->y, ucfirst($this->detalle_cols['QtyItem']['align'][0]), $this->detalle_cols['QtyItem']['width']);
+                $this->Texto($this->num($d['QtyItem']), $x + $offsets[2], $this->y, ucfirst($this->detalle_cols['QtyItem']['align'][0]), $this->detalle_cols['QtyItem']['width']);
             }
-            $this->Texto($this->num($d['MontoItem']), $x+$offsets[3], $this->y, ucfirst($this->detalle_cols['MontoItem']['align'][0]), $this->detalle_cols['MontoItem']['width']);
+            $this->Texto($this->num($d['MontoItem']), $x + $offsets[3], $this->y, ucfirst($this->detalle_cols['MontoItem']['align'][0]), $this->detalle_cols['MontoItem']['width']);
         }
-        $this->Line($p1x, $this->y+4, $p2x, $this->y+4, $style);
+        $this->Line($p1x, $this->y + 4, $p2x, $this->y + 4, $style);
     }
 
     /**
@@ -1117,19 +1121,20 @@ class Dte extends \sasco\LibreDTE\PDF
      * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]sasco.cl)
      * @version 2021-04-27
      */
-    protected function agregarSubTotal(array $detalle, $x = 10, $offset = 25) {
+    protected function agregarSubTotal(array $detalle, $x = 10, $offset = 25)
+    {
         $subtotal = 0;
         if (!isset($detalle[0])) {
             $detalle = [$detalle];
         }
-        foreach($detalle as  &$d) {
+        foreach ($detalle as  &$d) {
             if (!empty($d['MontoItem'])) {
                 $subtotal += $d['MontoItem'];
             }
         }
         if ($this->papelContinuo) {
             $this->Texto('Subtotal :', $x, null, 'R', 30);
-            $this->Texto($this->num($subtotal), $x+$offset, null, 'R', 30);
+            $this->Texto($this->num($subtotal), $x + $offset, null, 'R', 30);
         } else {
             $this->Texto('Subtotal:', 77, null, 'R', 100);
             $this->Texto($this->num($subtotal), 177, null, 'R', 22);
@@ -1149,18 +1154,18 @@ class Dte extends \sasco\LibreDTE\PDF
         if (!isset($descuentosRecargos[0])) {
             $descuentosRecargos = [$descuentosRecargos];
         }
-        foreach($descuentosRecargos as $dr) {
-            $tipo = $dr['TpoMov']=='D' ? 'Descuento' : 'Recargo';
+        foreach ($descuentosRecargos as $dr) {
+            $tipo = $dr['TpoMov'] == 'D' ? 'Descuento' : 'Recargo';
             if (!empty($dr['IndExeDR'])) {
                 $tipo .= ' EX';
             }
-            $valor = $dr['TpoValor']=='%' ? $dr['ValorDR'].'%' : $this->num($dr['ValorDR']);
+            $valor = $dr['TpoValor'] == '%' ? $dr['ValorDR'] . '%' : $this->num($dr['ValorDR']);
             if ($this->papelContinuo) {
-                $glosa = $tipo.' global'.(!empty($dr['GlosaDR'])?(' ('.$dr['GlosaDR'].')'):'').':';
+                $glosa = $tipo . ' global' . (!empty($dr['GlosaDR']) ? (' (' . $dr['GlosaDR'] . ')') : '') . ':';
                 $this->Texto($glosa, $x, null, 'R', 30);
-                $this->Texto($valor, $x+$offset, null, 'R', 30);
+                $this->Texto($valor, $x + $offset, null, 'R', 30);
             } else {
-                $this->Texto($tipo.(!empty($dr['GlosaDR'])?(' ('.$dr['GlosaDR'].')'):'').':', 77, null, 'R', 100);
+                $this->Texto($tipo . (!empty($dr['GlosaDR']) ? (' (' . $dr['GlosaDR'] . ')') : '') . ':', 77, null, 'R', 100);
                 $this->Texto($valor, 177, null, 'R', 22);
             }
             $this->Ln();
@@ -1180,8 +1185,8 @@ class Dte extends \sasco\LibreDTE\PDF
             $pagos = [$pagos];
         $this->Texto('Pago(s) programado(s):', $x);
         $this->Ln();
-        foreach($pagos as $p) {
-            $this->Texto('  - '.$this->date($p['FchPago'], false).': $'.$this->num($p['MntPago']).'.-'.(!empty($p['GlosaPagos'])?(' ('.$p['GlosaPagos'].')'):''), $x);
+        foreach ($pagos as $p) {
+            $this->Texto('  - ' . $this->date($p['FchPago'], false) . ': $' . $this->num($p['MntPago']) . '.-' . (!empty($p['GlosaPagos']) ? (' (' . $p['GlosaPagos'] . ')') : ''), $x);
             $this->Ln();
         }
     }
@@ -1215,7 +1220,7 @@ class Dte extends \sasco\LibreDTE\PDF
             'TpoMoneda' => 'Moneda',
             'MntNeto' => 'Neto $',
             'MntExe' => 'Exento $',
-            'IVA' => 'IVA '.(!empty($totales['TasaIVA'])?(' ('.$totales['TasaIVA'].'%) '):'').'$',
+            'IVA' => 'IVA ' . (!empty($totales['TasaIVA']) ? (' (' . $totales['TasaIVA'] . '%) ') : '') . '$',
             'IVANoRet' => 'IVA no retenido $',
             'CredEC' => 'Desc. 65% IVA $',
             'MntTotal' => 'Total $',
@@ -1232,12 +1237,12 @@ class Dte extends \sasco\LibreDTE\PDF
             if (!isset($ImptoReten[0])) {
                 $ImptoReten = [$ImptoReten];
             }
-            foreach($ImptoReten as $i) {
-                $totales['ImptoReten_'.$i['TipoImp']] = $i['MontoImp'];
+            foreach ($ImptoReten as $i) {
+                $totales['ImptoReten_' . $i['TipoImp']] = $i['MontoImp'];
                 if (!empty($i['TasaImp'])) {
-                    $glosas['ImptoReten_'.$i['TipoImp']] = \sasco\LibreDTE\Sii\ImpuestosAdicionales::getGlosa($i['TipoImp']).' ('.$i['TasaImp'].'%) $';
+                    $glosas['ImptoReten_' . $i['TipoImp']] = \sasco\LibreDTE\Sii\ImpuestosAdicionales::getGlosa($i['TipoImp']) . ' (' . $i['TasaImp'] . '%) $';
                 } else {
-                    $glosas['ImptoReten_'.$i['TipoImp']] = \sasco\LibreDTE\Sii\ImpuestosAdicionales::getGlosa($i['TipoImp']).' $';
+                    $glosas['ImptoReten_' . $i['TipoImp']] = \sasco\LibreDTE\Sii\ImpuestosAdicionales::getGlosa($i['TipoImp']) . ' $';
                 }
             }
             $totales['MntTotal'] = $MntTotal;
@@ -1246,19 +1251,19 @@ class Dte extends \sasco\LibreDTE\PDF
         $this->setY($y);
         $this->setFont('', 'B', null);
         foreach ($totales as $key => $total) {
-            if ($total!==false and isset($glosas[$key])) {
+            if ($total !== false and isset($glosas[$key])) {
                 $y = $this->GetY();
                 $monto_total = (!empty($totales['TpoMoneda']) and isset($this->tipo_moneda_decimales[$totales['TpoMoneda']]))
-                                ? $this->num($total, $this->tipo_moneda_decimales[$totales['TpoMoneda']])
-                                : $this->num($total);
+                    ? $this->num($total, $this->tipo_moneda_decimales[$totales['TpoMoneda']])
+                    : $this->num($total);
                 if (!$this->cedible or $this->papelContinuo) {
-                    $this->Texto($glosas[$key].' :', $x, null, 'R', 30);
-                    $this->Texto($monto_total, $x+$offset, $y, 'R', 30);
+                    $this->Texto($glosas[$key] . ' :', $x, null, 'R', 30);
+                    $this->Texto($monto_total, $x + $offset, $y, 'R', 30);
                     $this->Ln();
                 } else {
-                    $this->MultiTexto($glosas[$key].' :', $x, null, 'R', 30);
+                    $this->MultiTexto($glosas[$key] . ' :', $x, null, 'R', 30);
                     $y_new = $this->GetY();
-                    $this->Texto($monto_total, $x+$offset, $y, 'R', 30);
+                    $this->Texto($monto_total, $x + $offset, $y, 'R', 30);
                     $this->SetY($y_new);
                 }
             }
@@ -1273,13 +1278,13 @@ class Dte extends \sasco\LibreDTE\PDF
             foreach ($otra_moneda as $om) {
                 $y = $this->GetY();
                 if (!$this->cedible or $this->papelContinuo) {
-                    $this->Texto('Total '.$om['TpoMoneda'].' :', $x, null, 'R', 30);
-                    $this->Texto($this->num($om['MntTotOtrMnda']), $x+$offset, $y, 'R', 30);
+                    $this->Texto('Total ' . $om['TpoMoneda'] . ' :', $x, null, 'R', 30);
+                    $this->Texto($this->num($om['MntTotOtrMnda']), $x + $offset, $y, 'R', 30);
                     $this->Ln();
                 } else {
-                    $this->MultiTexto('Total '.$om['TpoMoneda'].' :', $x, null, 'R', 30);
+                    $this->MultiTexto('Total ' . $om['TpoMoneda'] . ' :', $x, null, 'R', 30);
                     $y_new = $this->GetY();
-                    $this->Texto($this->num($om['MntTotOtrMnda']), $x+$offset, $y, 'R', 30);
+                    $this->Texto($this->num($om['MntTotOtrMnda']), $x + $offset, $y, 'R', 30);
                     $this->SetY($y_new);
                 }
             }
@@ -1300,25 +1305,25 @@ class Dte extends \sasco\LibreDTE\PDF
         }
         $this->SetXY($x, $y);
         if (!empty($IdDoc['TermPagoGlosa'])) {
-            $this->MultiTexto('Observación: '.$IdDoc['TermPagoGlosa']);
+            $this->MultiTexto('Observación: ' . $IdDoc['TermPagoGlosa']);
         }
         if (!empty($IdDoc['MedioPago']) or !empty($IdDoc['TermPagoDias'])) {
             $pago = [];
             if (!empty($IdDoc['MedioPago'])) {
-                $medio = 'Medio de pago: '.(!empty($this->medios_pago[$IdDoc['MedioPago']]) ? $this->medios_pago[$IdDoc['MedioPago']] : $IdDoc['MedioPago']);
+                $medio = 'Medio de pago: ' . (!empty($this->medios_pago[$IdDoc['MedioPago']]) ? $this->medios_pago[$IdDoc['MedioPago']] : $IdDoc['MedioPago']);
                 if (!empty($IdDoc['BcoPago'])) {
-                    $medio .= ' a '.$IdDoc['BcoPago'];
+                    $medio .= ' a ' . $IdDoc['BcoPago'];
                 }
                 if (!empty($IdDoc['TpoCtaPago'])) {
-                    $medio .= ' en cuenta '.strtolower($IdDoc['TpoCtaPago']);
+                    $medio .= ' en cuenta ' . strtolower($IdDoc['TpoCtaPago']);
                 }
                 if (!empty($IdDoc['NumCtaPago'])) {
-                    $medio .= ' N° '.$IdDoc['NumCtaPago'];
+                    $medio .= ' N° ' . $IdDoc['NumCtaPago'];
                 }
                 $pago[] = $medio;
             }
             if (!empty($IdDoc['TermPagoDias'])) {
-                $pago[] = 'Días de pago: '.$IdDoc['TermPagoDias'];
+                $pago[] = 'Días de pago: ' . $IdDoc['TermPagoDias'];
             }
             $this->SetXY($x, $this->GetY());
             $this->MultiTexto(implode(' / ', $pago));
@@ -1340,7 +1345,7 @@ class Dte extends \sasco\LibreDTE\PDF
     protected function agregarTimbre($timbre, $x_timbre = 10, $x = 10, $y = 190, $w = 70, $font_size = 8, $position = null)
     {
         $y = (!$this->papelContinuo and !$this->timbre_pie) ? $this->x_fin_datos : $y;
-        if ($timbre!==null) {
+        if ($timbre !== null) {
             $style = [
                 'border' => false,
                 'padding' => 0,
@@ -1348,19 +1353,19 @@ class Dte extends \sasco\LibreDTE\PDF
                 'vpadding' => 0,
                 'module_width' => 1, // width of a single module in points
                 'module_height' => 1, // height of a single module in points
-                'fgcolor' => [0,0,0],
+                'fgcolor' => [0, 0, 0],
                 'bgcolor' => false, // [255,255,255]
                 'position' => $position === null ? ($this->papelContinuo ? 'C' : 'S') : $position,
             ];
             $ecl = version_compare(phpversion(), '7.0.0', '<') ? -1 : $this->ecl;
-            $this->write2DBarcode($timbre, 'PDF417,,'.$ecl, $x_timbre, $y, $w, 0, $style, 'B');
+            $this->write2DBarcode($timbre, 'PDF417,,' . $ecl, $x_timbre, $y, $w, 0, $style, 'B');
             $this->setFont('', 'B', $font_size);
             $this->Texto('Timbre Electrónico SII', $x, null, 'C', $w);
             $this->Ln();
-            $this->Texto('Resolución '.$this->resolucion['NroResol'].' de '.explode('-', $this->resolucion['FchResol'])[0], $x, null, 'C', $w);
+            $this->Texto('Resolución ' . $this->resolucion['NroResol'] . ' de ' . explode('-', $this->resolucion['FchResol'])[0], $x, null, 'C', $w);
             $this->Ln();
-            if ($w>=60) {
-                $this->Texto('Verifique documento: '.$this->web_verificacion, $x, null, 'C', $w);
+            if ($w >= 60) {
+                $this->Texto('Verifique documento: ' . $this->web_verificacion, $x, null, 'C', $w);
             } else {
                 $this->Texto('Verifique documento:', $x, null, 'C', $w);
                 $this->Ln();
@@ -1381,23 +1386,23 @@ class Dte extends \sasco\LibreDTE\PDF
     protected function agregarAcuseRecibo($x = 83, $y = 190, $w = 60, $h = 40, $line = 25)
     {
         $y = (!$this->papelContinuo and !$this->timbre_pie) ? $this->x_fin_datos : $y;
-        $this->SetTextColorArray([0,0,0]);
+        $this->SetTextColorArray([0, 0, 0]);
         $this->Rect($x, $y, $w, $h, 'D', ['all' => ['width' => 0.1, 'color' => [0, 0, 0]]]);
         $this->setFont('', 'B', 10);
-        $this->Texto('Acuse de recibo', $x, $y+1, 'C', $w);
+        $this->Texto('Acuse de recibo', $x, $y + 1, 'C', $w);
         $this->setFont('', 'B', 8);
-        $this->Texto('Nombre', $x+2, $this->y+8);
-        $this->Texto(str_repeat('_', $line), $x+18);
-        $this->Texto('RUN', $x+2, $this->y+6);
-        $this->Texto(str_repeat('_', $line), $x+18);
-        $this->Texto('Fecha', $x+2, $this->y+6);
-        $this->Texto(str_repeat('_', $line), $x+18);
-        $this->Texto('Recinto', $x+2, $this->y+6);
-        $this->Texto(str_repeat('_', $line), $x+18);
-        $this->Texto('Firma', $x+2, $this->y+8);
-        $this->Texto(str_repeat('_', $line), $x+18);
+        $this->Texto('Nombre', $x + 2, $this->y + 8);
+        $this->Texto(str_repeat('_', $line), $x + 18);
+        $this->Texto('RUN', $x + 2, $this->y + 6);
+        $this->Texto(str_repeat('_', $line), $x + 18);
+        $this->Texto('Fecha', $x + 2, $this->y + 6);
+        $this->Texto(str_repeat('_', $line), $x + 18);
+        $this->Texto('Recinto', $x + 2, $this->y + 6);
+        $this->Texto(str_repeat('_', $line), $x + 18);
+        $this->Texto('Firma', $x + 2, $this->y + 8);
+        $this->Texto(str_repeat('_', $line), $x + 18);
         $this->setFont('', 'B', 7);
-        $this->MultiTexto('El acuse de recibo que se declara en este acto, de acuerdo a lo dispuesto en la letra b) del Art. 4°, y la letra c) del Art. 5° de la Ley 19.983, acredita que la entrega de mercaderías o servicio (s) prestado (s) ha (n) sido recibido (s).'."\n", $x, $this->y+6, 'J', $w);
+        $this->MultiTexto('El acuse de recibo que se declara en este acto, de acuerdo a lo dispuesto en la letra b) del Art. 4°, y la letra c) del Art. 5° de la Ley 19.983, acredita que la entrega de mercaderías o servicio (s) prestado (s) ha (n) sido recibido (s).' . "\n", $x, $this->y + 6, 'J', $w);
     }
 
     /**
@@ -1411,26 +1416,26 @@ class Dte extends \sasco\LibreDTE\PDF
      */
     protected function agregarAcuseReciboContinuo($x = 3, $y = null, $w = 68, $h = 40)
     {
-        $this->SetTextColorArray([0,0,0]);
+        $this->SetTextColorArray([0, 0, 0]);
         $this->Rect($x, $y, $w, $h, 'D', ['all' => ['width' => 0.1, 'color' => [0, 0, 0]]]);
-        $style = array('width' => 0.2,'color' => array(0, 0, 0));
-        $this->Line($x, $y+22, $w+3, $y+22, $style);
+        $style = array('width' => 0.2, 'color' => array(0, 0, 0));
+        $this->Line($x, $y + 22, $w + 3, $y + 22, $style);
         //$this->setFont('', 'B', 10);
         //$this->Texto('Acuse de recibo', $x, $y+1, 'C', $w);
         $this->setFont('', 'B', 6);
-        $this->Texto('Nombre', $x+2, $this->y+8);
-        $this->Texto('_____________________________________________', $x+12);
-        $this->Texto('RUN', $x+2, $this->y+6);
-        $this->Texto('________________', $x+12);
-        $this->Texto('Firma', $x+32, $this->y+0.5);
-        $this->Texto('___________________', $x+42.5);
-        $this->Texto('Fecha', $x+2, $this->y+6);
-        $this->Texto('________________', $x+12);
-        $this->Texto('Recinto', $x+32, $this->y+0.5);
-        $this->Texto('___________________', $x+42.5);
+        $this->Texto('Nombre', $x + 2, $this->y + 8);
+        $this->Texto('_____________________________________________', $x + 12);
+        $this->Texto('RUN', $x + 2, $this->y + 6);
+        $this->Texto('________________', $x + 12);
+        $this->Texto('Firma', $x + 32, $this->y + 0.5);
+        $this->Texto('___________________', $x + 42.5);
+        $this->Texto('Fecha', $x + 2, $this->y + 6);
+        $this->Texto('________________', $x + 12);
+        $this->Texto('Recinto', $x + 32, $this->y + 0.5);
+        $this->Texto('___________________', $x + 42.5);
 
         $this->setFont('', 'B', 5);
-        $this->MultiTexto('El acuse de recibo que se declara en este acto, de acuerdo a lo dispuesto en la letra b) del Art. 4°, y la letra c) del Art. 5° de la Ley 19.983, acredita que la entrega de mercaderías o servicio (s) prestado (s) ha (n) sido recibido (s).'."\n", $x+2, $this->y+8, 'J', $w-3);
+        $this->MultiTexto('El acuse de recibo que se declara en este acto, de acuerdo a lo dispuesto en la letra b) del Art. 4°, y la letra c) del Art. 5° de la Ley 19.983, acredita que la entrega de mercaderías o servicio (s) prestado (s) ha (n) sido recibido (s).' . "\n", $x + 2, $this->y + 8, 'J', $w - 3);
     }
 
     /**
@@ -1440,10 +1445,10 @@ class Dte extends \sasco\LibreDTE\PDF
      */
     protected function agregarLeyendaDestino($tipo, $y = 190, $font_size = 10)
     {
-        $y = (!$this->papelContinuo and !$this->timbre_pie and $this->x_fin_datos<=$y) ? $this->x_fin_datos : $y;
+        $y = (!$this->papelContinuo and !$this->timbre_pie and $this->x_fin_datos <= $y) ? $this->x_fin_datos : $y;
         $y += 48;
         $this->setFont('', 'B', $font_size);
-        $this->Texto('CEDIBLE'.($tipo==52?' CON SU FACTURA':''), null, $y, 'R');
+        $this->Texto('CEDIBLE' . ($tipo == 52 ? ' CON SU FACTURA' : ''), null, $y, 'R');
     }
 
     /**
@@ -1454,7 +1459,6 @@ class Dte extends \sasco\LibreDTE\PDF
     protected function agregarLeyendaDestinoContinuo($tipo)
     {
         $this->setFont('', 'B', 8);
-        $this->Texto('CEDIBLE'.($tipo==52?' CON SU FACTURA':''), null, $this->y+6, 'R');
+        $this->Texto('CEDIBLE' . ($tipo == 52 ? ' CON SU FACTURA' : ''), null, $this->y + 6, 'R');
     }
-
 }
