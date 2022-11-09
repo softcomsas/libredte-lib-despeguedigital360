@@ -45,7 +45,7 @@ class Dte extends \sasco\LibreDTE\PDF
 
     protected $detalle_cols = [
         'CdgItem' => ['title' => 'Código', 'align' => 'left', 'width' => 20],
-        'NmbItem' => ['title' => 'Item', 'align' => 'left', 'width' => 0],
+        'NmbItem' => ['title' => 'Artículo', 'align' => 'left', 'width' => 0],
         'IndExe' => ['title' => 'IE', 'align' => 'left', 'width' => '7'],
         'QtyItem' => ['title' => 'Cant.', 'align' => 'right', 'width' => 15],
         'UnmdItem' => ['title' => 'Unidad', 'align' => 'left', 'width' => 22],
@@ -53,7 +53,7 @@ class Dte extends \sasco\LibreDTE\PDF
         'PrcItem' => ['title' => 'P. unitario', 'align' => 'right', 'width' => 22],
         'DescuentoMonto' => ['title' => 'Descuento', 'align' => 'right', 'width' => 22],
         'RecargoMonto' => ['title' => 'Recargo', 'align' => 'right', 'width' => 22],
-        'MontoItem' => ['title' => 'Total item', 'align' => 'right', 'width' => 22],
+        'MontoItem' => ['title' => 'Valor', 'align' => 'right', 'width' => 22],
     ]; ///< Nombres de columnas detalle, alineación y ancho
 
     public static $papel = [
@@ -365,8 +365,9 @@ class Dte extends \sasco\LibreDTE\PDF
         $this->SetY($y);
         $this->Ln();
         $this->setFont('', '', 8);
-        $this->agregarDatosEmision($dte['Encabezado']['IdDoc'], !empty($dte['Encabezado']['Emisor']['CdgVendedor']) ? $dte['Encabezado']['Emisor']['CdgVendedor'] : null, $x_start, $offset, false);
         $this->agregarReceptor($dte['Encabezado'], $x_start, $offset);
+        $this->Ln();
+        $this->agregarDatosEmision($dte['Encabezado']['IdDoc'], !empty($dte['Encabezado']['Emisor']['CdgVendedor']) ? $dte['Encabezado']['Emisor']['CdgVendedor'] : null, $x_start, $offset, false);
         $this->agregarTraslado(
             !empty($dte['Encabezado']['IdDoc']['IndTraslado']) ? $dte['Encabezado']['IdDoc']['IndTraslado'] : null,
             !empty($dte['Encabezado']['Transporte']) ? $dte['Encabezado']['Transporte'] : null,
@@ -687,11 +688,11 @@ class Dte extends \sasco\LibreDTE\PDF
         }
         // papel contínuo
         else {
-            // fecha de emisión
+            // fecha de emisión            
             $this->setFont('', 'B', null);
             $this->Texto('Emisión', $x);
             $this->Texto(':', $x + $offset);
-            $this->setFont('', '', null);
+            $this->setFont('', 'B', null);
             $this->MultiTexto($this->date($IdDoc['FchEmis'], $mostrar_dia), $x + $offset + 2);
             // forma de pago nacional
             if (!empty($IdDoc['FmaPago'])) {
@@ -740,6 +741,13 @@ class Dte extends \sasco\LibreDTE\PDF
     protected function agregarReceptor(array $Encabezado, $x = 10, $offset = 22)
     {
         $receptor = $Encabezado['Receptor'];
+        if (!empty($receptor['RznSocRecep'])) {
+            $this->setFont('', 'B', null);
+            $this->Texto(in_array($this->dte, [39, 41]) ? 'Nombre' : ($x == 10 ? 'Razón social' : 'Razón soc.'), $x);
+            $this->Texto(':', $x + $offset);
+            $this->setFont('', 'B', null);
+            $this->MultiTexto($receptor['RznSocRecep'], $x + $offset + 2, null, '', $x == 10 ? 105 : 0);
+        }
         if (!empty($receptor['RUTRecep']) and $receptor['RUTRecep'] != '66666666-6') {
             list($rut, $dv) = explode('-', $receptor['RUTRecep']);
             $this->setFont('', 'B', null);
@@ -747,13 +755,6 @@ class Dte extends \sasco\LibreDTE\PDF
             $this->Texto(':', $x + $offset);
             $this->setFont('', '', null);
             $this->MultiTexto($this->num($rut) . '-' . $dv, $x + $offset + 2);
-        }
-        if (!empty($receptor['RznSocRecep'])) {
-            $this->setFont('', 'B', null);
-            $this->Texto(in_array($this->dte, [39, 41]) ? 'Nombre' : ($x == 10 ? 'Razón social' : 'Razón soc.'), $x);
-            $this->Texto(':', $x + $offset);
-            $this->setFont('', '', null);
-            $this->MultiTexto($receptor['RznSocRecep'], $x + $offset + 2, null, '', $x == 10 ? 105 : 0);
         }
         if (!empty($receptor['GiroRecep'])) {
             $this->setFont('', 'B', null);
@@ -1218,7 +1219,7 @@ class Dte extends \sasco\LibreDTE\PDF
         // glosas
         $glosas = [
             'TpoMoneda' => 'Moneda',
-            'MntNeto' => 'Neto $',
+            'MntNeto' => 'Total Neto $',
             'MntExe' => 'Exento $',
             'IVA' => 'IVA ' . (!empty($totales['TasaIVA']) ? (' (' . $totales['TasaIVA'] . '%) ') : '') . '$',
             'IVANoRet' => 'IVA no retenido $',
