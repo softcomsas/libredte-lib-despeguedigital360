@@ -65,6 +65,7 @@ $caratula = [
     (Posibles valores, No es obligatorio poner esta línea si no cumple con el criterio)
     # 1: Montos de líneas de detalle vienen expresados en montos brutos
 
+'Totales'   : Se dejan con los valores ceros ya que la librería calcula automático todo.
 'Detalle'   : Se debe cargar los productos que tenía la factura a la que se hace nota de crédito.
 'TpoDocRef' : Se pone 33 ya que se hace nota de crédito a una factura electronica, se puede hacer a boleta tambien.
 'FolioRef'  : Folio que tenía la factura a la que se hace nota de crédito.
