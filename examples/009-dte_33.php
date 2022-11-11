@@ -43,8 +43,6 @@ include 'inc.php';
 
 // solicitar ambiente desarrollo con configuración
 \sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
-echo \sasco\LibreDTE\Sii::wsdl('CrSeed'), "\n";
-echo \sasco\LibreDTE\Sii::wsdl('GetTokenFromSeed'), "\n\n";
 
 // datos
 $factura = [
