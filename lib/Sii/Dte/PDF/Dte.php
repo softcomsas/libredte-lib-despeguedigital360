@@ -748,10 +748,11 @@ class Dte extends \sasco\LibreDTE\PDF
             $this->setFont('', 'B', null);
             $this->MultiTexto($receptor['RznSocRecep'], $x + $offset + 2, null, '', $x == 10 ? 105 : 0);
         }
-        if (!empty($receptor['RUTRecep']) and $receptor['RUTRecep'] != '66666666-6') {
+        if (!empty($receptor['RUTRecep'])) { // Originalmente viene con esta validacion: "and $receptor['RUTRecep'] != '66666666-6'"
             list($rut, $dv) = explode('-', $receptor['RUTRecep']);
             $this->setFont('', 'B', null);
-            $this->Texto(in_array($this->dte, [39, 41]) ? 'R.U.N.' : 'R.U.T.', $x);
+            // $this->Texto(in_array($this->dte, [39, 41]) ? 'R.U.N.' : 'R.U.T.', $x); // Originalmente viene de esta forma
+            $this->Texto('R.U.T.', $x); // Se modifica a esto a peticion del cliente
             $this->Texto(':', $x + $offset);
             $this->setFont('', '', null);
             $this->MultiTexto($this->num($rut) . '-' . $dv, $x + $offset + 2);
