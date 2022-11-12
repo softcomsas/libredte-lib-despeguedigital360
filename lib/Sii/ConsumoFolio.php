@@ -72,7 +72,7 @@ class ConsumoFolio extends \sasco\LibreDTE\Sii\Base\Libro
             'RutEnvia' => isset($this->Firma) ? $this->Firma->getID() : false,
             'FchResol' => false,
             'NroResol' => false,
-            // 'FchInicio' => $this->getFechaEmisionInicial(),
+            'FchInicio' => $this->getFechaEmisionInicial(),
             'FchFinal' => $this->getFechaEmisionFinal(),
             'Correlativo' => false,
             'SecEnvio' => 1,
