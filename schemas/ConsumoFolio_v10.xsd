@@ -46,6 +46,11 @@
 												<xs:documentation>Numero de Resoluci�n que Autoriza el Envio de DTE</xs:documentation>
 											</xs:annotation>
 										</xs:element>
+										<xs:element name="FchInicio" type="xs:date">
+											<xs:annotation>
+												<xs:documentation>Fecha primer d�a del Resumen(AAAA-MM-DD)</xs:documentation>
+											</xs:annotation>
+										</xs:element>
 										<xs:element name="FchFinal" type="xs:date">
 											<xs:annotation>
 												<xs:documentation>Fecha �ltimo d�a del Resumen (AAAA-MM-DD)</xs:documentation>
