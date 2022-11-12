@@ -6,8 +6,8 @@
           Modificacion    : 09 de Septiembre 15:00. Se corrige <xs:element name="Resumen" maxOccurs="3">
  -->
 <xs:schema targetNamespace="http://www.sii.cl/SiiDte" xmlns:SiiDte="http://www.sii.cl/SiiDte" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsignature_v10.xsd"/>
-	<xs:include schemaLocation="SiiTypes_v10.xsd"/>
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsignature_v10.xsd" />
+	<xs:include schemaLocation="SiiTypes_v10.xsd" />
 	<xs:element name="ConsumoFolios">
 		<xs:annotation>
 			<xs:documentation>Consumo de Folios</xs:documentation>
@@ -38,22 +38,17 @@
 										</xs:element>
 										<xs:element name="FchResol" type="xs:date">
 											<xs:annotation>
-												<xs:documentation>Fecha de Resolución que Autoriza el Envío de DTE (AAAA-MM-DD)</xs:documentation>
+												<xs:documentation>Fecha de Resoluciï¿½n que Autoriza el Envï¿½o de DTE (AAAA-MM-DD)</xs:documentation>
 											</xs:annotation>
 										</xs:element>
 										<xs:element name="NroResol" type="SiiDte:NroResolType">
 											<xs:annotation>
-												<xs:documentation>Numero de Resolución que Autoriza el Envio de DTE</xs:documentation>
-											</xs:annotation>
-										</xs:element>
-										<xs:element name="FchInicio" type="xs:date">
-											<xs:annotation>
-												<xs:documentation>Fecha primer día del Resumen(AAAA-MM-DD)</xs:documentation>
+												<xs:documentation>Numero de Resoluciï¿½n que Autoriza el Envio de DTE</xs:documentation>
 											</xs:annotation>
 										</xs:element>
 										<xs:element name="FchFinal" type="xs:date">
 											<xs:annotation>
-												<xs:documentation>Fecha último día del Resumen (AAAA-MM-DD)</xs:documentation>
+												<xs:documentation>Fecha ï¿½ltimo dï¿½a del Resumen (AAAA-MM-DD)</xs:documentation>
 											</xs:annotation>
 										</xs:element>
 										<xs:element name="Correlativo" minOccurs="0">
@@ -62,17 +57,17 @@
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:nonNegativeInteger">
-													<xs:totalDigits value="3"/>
+													<xs:totalDigits value="3" />
 												</xs:restriction>
 											</xs:simpleType>
 										</xs:element>
 										<xs:element name="SecEnvio">
 											<xs:annotation>
-												<xs:documentation>Secuencia de Envio. La primera vez que se envia debe traer el numero 1. Si se desea corregir información se debe enviar el archivo completo, pero "SecEnvio", debe aumentar en 1, es decir la segunda vez debe traer el valor 2, la tercera vez debe traer el valor 3, etc.</xs:documentation>
+												<xs:documentation>Secuencia de Envio. La primera vez que se envia debe traer el numero 1. Si se desea corregir informaciï¿½n se debe enviar el archivo completo, pero "SecEnvio", debe aumentar en 1, es decir la segunda vez debe traer el valor 2, la tercera vez debe traer el valor 3, etc.</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:nonNegativeInteger">
-													<xs:totalDigits value="3"/>
+													<xs:totalDigits value="3" />
 												</xs:restriction>
 											</xs:simpleType>
 										</xs:element>
@@ -82,7 +77,7 @@
 											</xs:annotation>
 										</xs:element>
 									</xs:sequence>
-									<xs:attribute name="version" type="xs:decimal" use="required" fixed="1.0"/>
+									<xs:attribute name="version" type="xs:decimal" use="required" fixed="1.0" />
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="Resumen" maxOccurs="3">
@@ -123,21 +118,21 @@
 										</xs:element>
 										<xs:element name="FoliosEmitidos">
 											<xs:annotation>
-												<xs:documentation>Se debe indicar la cantidad total de documentos emitidos en el día.</xs:documentation>
+												<xs:documentation>Se debe indicar la cantidad total de documentos emitidos en el dï¿½a.</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:nonNegativeInteger">
-													<xs:totalDigits value="6"/>
+													<xs:totalDigits value="6" />
 												</xs:restriction>
 											</xs:simpleType>
 										</xs:element>
 										<xs:element name="FoliosAnulados">
 											<xs:annotation>
-												<xs:documentation>SE REFIERE A LOS FOLIOS ANULADOS EN EL SISTEMA (Opción anulación de folios) y no a Documentos anulados mediante Notas de Crédito</xs:documentation>
+												<xs:documentation>SE REFIERE A LOS FOLIOS ANULADOS EN EL SISTEMA (Opciï¿½n anulaciï¿½n de folios) y no a Documentos anulados mediante Notas de Crï¿½dito</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:nonNegativeInteger">
-													<xs:totalDigits value="6"/>
+													<xs:totalDigits value="6" />
 												</xs:restriction>
 											</xs:simpleType>
 										</xs:element>
@@ -147,7 +142,7 @@
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:nonNegativeInteger">
-													<xs:totalDigits value="6"/>
+													<xs:totalDigits value="6" />
 												</xs:restriction>
 											</xs:simpleType>
 										</xs:element>
@@ -193,7 +188,7 @@
 								</xs:complexType>
 							</xs:element>
 						</xs:sequence>
-						<xs:attribute name="ID" type="xs:ID" use="required"/>
+						<xs:attribute name="ID" type="xs:ID" use="required" />
 					</xs:complexType>
 				</xs:element>
 				<xs:element ref="ds:Signature">
@@ -202,7 +197,7 @@
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
-			<xs:attribute name="version" type="xs:decimal" use="required" fixed="1.0"/>
+			<xs:attribute name="version" type="xs:decimal" use="required" fixed="1.0" />
 		</xs:complexType>
 	</xs:element>
 	<xs:simpleType name="TipoConsumoType">
@@ -210,7 +205,7 @@
 			<xs:documentation>Tipos de Documentos aceptados en consumo de Folios</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:positiveInteger">
-			<xs:enumeration value="39"/>
+			<xs:enumeration value="39" />
 			<xs:enumeration value="41">
 				<xs:annotation>
 					<xs:documentation>Boleta Exenta Electronica</xs:documentation>

@@ -54,7 +54,7 @@ if (!$token) {
 // consultar estado enviado
 $rut = '7555986';
 $dv = '0';
-$trackID = '7929850666';
+$trackID = '7929930948';
 $estado = \sasco\LibreDTE\Sii::request('QueryEstUp', 'getEstUp', [$rut, $dv, $trackID, $token]);
 
 // si el estado se pudo recuperar se muestra estado y glosa
