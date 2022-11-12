@@ -77,19 +77,17 @@ $caratula = [
     # 3: Corrige montos
 
 'RazonRef'  : Es un texto que se debe aclarar dependiente del CodRef seleccionado. Este texto lo debe mandar el usuario desde formulario.
-    (Posibles valores)
-    # 1: "ANULA FACTURA"
-    # 2: "CORRIGE GIRO DEL RECEPTOR"
-    # 3: "DEVOLUCION DE MERCADERIAS"
+    (Ejemplo de valores)
+    # Para CodRef 1: "ANULA FACTURA"
+    # Para CodRef 2: "CORRIGE GIRO DEL RECEPTOR"
+    # Para CodRef 3: "DEVOLUCION DE MERCADERIAS"
 */
 
 // solicitar ambiente desarrollo con configuración
 \sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
-echo \sasco\LibreDTE\Sii::wsdl('CrSeed'), "\n";
-echo \sasco\LibreDTE\Sii::wsdl('GetTokenFromSeed'), "\n\n";
 
 // Objetos de Firma y Folios
-$Firma = new \sasco\LibreDTE\FirmaElectronica($config);
+$Firma = new \sasco\LibreDTE\FirmaElectronica($config["firma"]);
 
 $Folios = new \sasco\LibreDTE\Sii\Folios(file_get_contents('folios/61.xml'));
 
@@ -105,7 +103,7 @@ $EnvioDTE->setFirma($Firma);
 $EnvioDTE->setCaratula($caratula);
 $EnvioDTE->generar();
 if ($EnvioDTE->schemaValidate()) {
-    $EnvioDTE->generar();
+    echo $EnvioDTE->generar();
     $track_id = $EnvioDTE->enviar();
     var_dump($track_id);
 }

@@ -72,13 +72,13 @@ class ConsumoFolio extends \sasco\LibreDTE\Sii\Base\Libro
             'RutEnvia' => isset($this->Firma) ? $this->Firma->getID() : false,
             'FchResol' => false,
             'NroResol' => false,
-            'FchInicio' => $this->getFechaEmisionInicial(),
+            // 'FchInicio' => $this->getFechaEmisionInicial(),
             'FchFinal' => $this->getFechaEmisionFinal(),
             'Correlativo' => false,
             'SecEnvio' => 1,
             'TmstFirmaEnv' => date('Y-m-d\TH:i:s'),
         ], $caratula);
-        $this->id = 'LibreDTE_CONSUMO_FOLIO_'.str_replace('-', '', $this->caratula['RutEmisor']).'_'.str_replace('-', '', $this->caratula['FchInicio']).'_'.date('U');
+        $this->id = 'LibreDTE_CONSUMO_FOLIO_' . str_replace('-', '', $this->caratula['RutEmisor']) . '_' . str_replace('-', '', $this->caratula['FchInicio']) . '_' . date('U');
     }
 
     /**
@@ -112,7 +112,7 @@ class ConsumoFolio extends \sasco\LibreDTE\Sii\Base\Libro
             ]
         ])->saveXML();
         // firmar XML del envío y entregar
-        $this->xml_data = $this->Firma ? $this->Firma->signXML($xmlEnvio, '#'.$this->id, 'DocumentoConsumoFolios', true) : $xmlEnvio;
+        $this->xml_data = $this->Firma ? $this->Firma->signXML($xmlEnvio, '#' . $this->id, 'DocumentoConsumoFolios', true) : $xmlEnvio;
         return $this->xml_data;
     }
 
@@ -167,7 +167,7 @@ class ConsumoFolio extends \sasco\LibreDTE\Sii\Base\Libro
             // si no existe el tipo de documento se utiliza
             if (!isset($Resumen[$d['TpoDoc']])) {
                 $key = array_search($d['TpoDoc'], $this->documentos);
-                if ($key!==false) {
+                if ($key !== false) {
                     unset($this->documentos[$key]);
                 }
                 $Resumen[$d['TpoDoc']] = [
@@ -234,8 +234,8 @@ class ConsumoFolio extends \sasco\LibreDTE\Sii\Base\Libro
         $aux = [];
         $inicial = $folios[0];
         $i = $inicial;
-        foreach($folios as $f) {
-            if ($i!=$f) {
+        foreach ($folios as $f) {
+            if ($i != $f) {
                 $inicial = $f;
                 $i = $inicial;
             }
@@ -247,7 +247,7 @@ class ConsumoFolio extends \sasco\LibreDTE\Sii\Base\Libro
         foreach ($aux as $folios) {
             $rangos[] = [
                 'Inicial' => $folios[0],
-                'Final' => $folios[count($folios)-1],
+                'Final' => $folios[count($folios) - 1],
             ];
         }
         return $rangos;
@@ -262,5 +262,4 @@ class ConsumoFolio extends \sasco\LibreDTE\Sii\Base\Libro
     {
         return $this->caratula['SecEnvio'];
     }
-
 }

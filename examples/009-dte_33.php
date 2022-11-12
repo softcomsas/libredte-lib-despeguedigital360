@@ -48,7 +48,7 @@ include 'inc.php';
 $factura = [
     'Encabezado' => [
         'IdDoc' => [
-            'TipoDTE' => 33,
+            'TipoDTE' => 39,
             'Folio' => 1,
         ],
         'Emisor' => [
@@ -83,14 +83,14 @@ $factura = [
 $caratula = [
     //'RutEnvia' => '11222333-4', // se obtiene de la firma
     'RutReceptor' => '60803000-K',
-    'FchResol' => '2014-12-05',
+    'FchResol' => '2014-08-22',
     'NroResol' => 80,
 ];
 
 // Objetos de Firma y Folios
 $Firma = new \sasco\LibreDTE\FirmaElectronica($config["firma"]);
 
-$Folios = new \sasco\LibreDTE\Sii\Folios(file_get_contents('folios/33.xml'));
+$Folios = new \sasco\LibreDTE\Sii\Folios(file_get_contents('folios/39.xml'));
 
 // generar XML del DTE timbrado y firmado
 $DTE = new \sasco\LibreDTE\Sii\Dte($factura);
@@ -106,51 +106,51 @@ $EnvioDTE->generar();
 if ($EnvioDTE->schemaValidate()) {
 
     // Esta es la acción solo para cuando es una factura, que se obtiene el trackid
-    echo $EnvioDTE->generar();
-    $track_id = $EnvioDTE->enviar();
-    var_dump($track_id);
+    // echo $EnvioDTE->generar();
+    // $track_id = $EnvioDTE->enviar();
+    // var_dump($track_id);
 
-    // //  Aqui arranca el detalle para cuando es boleta
-    // $xml = $EnvioDTE->generar();
-    // if (is_writable('xml/EnvioBOLETA.xml'))
-    //     file_put_contents('xml/EnvioBOLETA.xml', $xml);
+    //  Aqui arranca el detalle para cuando es boleta
+    $xml = $EnvioDTE->generar();
+    if (is_writable('xml/EnvioBOLETA.xml'))
+        file_put_contents('xml/EnvioBOLETA.xml', $xml);
 
-    // $boletas = 'xml/EnvioBOLETA.xml';
+    $boletas = 'xml/EnvioBOLETA.xml';
 
-    // // cargar XML boletas
-    // $EnvioBOLETA = new \sasco\LibreDTE\Sii\EnvioDte();
-    // $EnvioBOLETA->loadXML(file_get_contents($boletas));
+    // cargar XML boletas
+    $EnvioBOLETA = new \sasco\LibreDTE\Sii\EnvioDte();
+    $EnvioBOLETA->loadXML(file_get_contents($boletas));
 
-    // // crear objeto para consumo de folios
-    // $ConsumoFolio = new \sasco\LibreDTE\Sii\ConsumoFolio();
-    // $ConsumoFolio->setFirma(new \sasco\LibreDTE\FirmaElectronica($config));
-    // $ConsumoFolio->setDocumentos([39, 41, 61]);
+    // crear objeto para consumo de folios
+    $ConsumoFolio = new \sasco\LibreDTE\Sii\ConsumoFolio();
+    $ConsumoFolio->setFirma(new \sasco\LibreDTE\FirmaElectronica($config));
+    $ConsumoFolio->setDocumentos([39, 41, 61]);
 
-    // // agregar detalle de boletas
-    // foreach ($EnvioBOLETA->getDocumentos() as $Dte) {
-    //     $ConsumoFolio->agregar($Dte->getResumen());
-    // }
+    // agregar detalle de boletas
+    foreach ($EnvioBOLETA->getDocumentos() as $Dte) {
+        $ConsumoFolio->agregar($Dte->getResumen());
+    }
 
-    // // crear carátula para el envío (se hace después de agregar los detalles ya que
-    // // así se obtiene automáticamente la fecha inicial y final de los documentos)
-    // $CaratulaEnvioBOLETA = $EnvioBOLETA->getCaratula();
-    // $ConsumoFolio->setCaratula([
-    //     'RutEmisor' => $CaratulaEnvioBOLETA['RutEmisor'],
-    //     'FchResol' => $CaratulaEnvioBOLETA['FchResol'],
-    //     'NroResol' => $CaratulaEnvioBOLETA['NroResol'],
-    // ]);
+    // crear carátula para el envío (se hace después de agregar los detalles ya que
+    // así se obtiene automáticamente la fecha inicial y final de los documentos)
+    $CaratulaEnvioBOLETA = $EnvioBOLETA->getCaratula();
+    $ConsumoFolio->setCaratula([
+        'RutEmisor' => $CaratulaEnvioBOLETA['RutEmisor'],
+        'FchResol' => $CaratulaEnvioBOLETA['FchResol'],
+        'NroResol' => $CaratulaEnvioBOLETA['NroResol'],
+    ]);
 
-    // // generar, validar schema y mostrar XML
-    // $ConsumoFolio->generar();
-    // if ($ConsumoFolio->schemaValidate()) {
-    //     //echo $ConsumoFolio->generar();
-    //     $track_id = $ConsumoFolio->enviar();
-    //     var_dump($track_id);
-    // }
+    // generar, validar schema y mostrar XML
+    $ConsumoFolio->generar();
+    if ($ConsumoFolio->schemaValidate()) {
+        //echo $ConsumoFolio->generar();
+        $track_id = $ConsumoFolio->enviar();
+        var_dump($track_id);
+    }
 
-    // // si hubo errores mostrar
-    // foreach (\sasco\LibreDTE\Log::readAll() as $error)
-    //     echo $error, "\n";
+    // si hubo errores mostrar
+    foreach (\sasco\LibreDTE\Log::readAll() as $error)
+        echo $error, "\n";
 }
 
 // si hubo algún error se muestra

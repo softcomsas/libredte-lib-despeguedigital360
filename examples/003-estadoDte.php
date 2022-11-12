@@ -35,13 +35,15 @@ header('Content-type: text/plain');
 // incluir archivos php de la biblioteca y configuraciones
 include 'inc.php';
 
-// solicitar ambiente desarrollo con configuración
-\sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
-echo \sasco\LibreDTE\Sii::wsdl('CrSeed'), "\n";
-echo \sasco\LibreDTE\Sii::wsdl('GetTokenFromSeed'), "\n\n";
+// // solicitar ambiente desarrollo con configuración
+// \sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
+// echo \sasco\LibreDTE\Sii::wsdl('CrSeed'), "\n";
+// echo \sasco\LibreDTE\Sii::wsdl('GetTokenFromSeed'), "\n\n";
+
+\sasco\LibreDTE\Sii::setAmbiente();
 
 // solicitar token
-$token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config);
+$token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config["firma"]);
 if (!$token) {
     foreach (\sasco\LibreDTE\Log::readAll() as $error)
         echo $error, "\n";
@@ -50,8 +52,8 @@ if (!$token) {
 
 // consultar estado dte
 $xml = \sasco\LibreDTE\Sii::request('QueryEstDte', 'getEstDte', [
-    'RutConsultante'    => '',
-    'DvConsultante'     => '',
+    'RutConsultante'    => '7555986',
+    'DvConsultante'     => '0',
     'RutCompania'       => '',
     'DvCompania'        => '',
     'RutReceptor'       => '',

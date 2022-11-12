@@ -33,8 +33,17 @@ header('Content-type: text/plain');
 // incluir archivos php de la biblioteca y configuraciones
 include 'inc.php';
 
+// solicitar ambiente producción
+\sasco\LibreDTE\Sii::setAmbiente();
+echo \sasco\LibreDTE\Sii::wsdl('CrSeed'), "\n";
+
+// // solicitar ambiente desarrollo con configuración
+// \sasco\LibreDTE\Sii::setAmbiente(\sasco\LibreDTE\Sii::CERTIFICACION);
+// echo \sasco\LibreDTE\Sii::wsdl('CrSeed'), "\n";
+// echo \sasco\LibreDTE\Sii::wsdl('GetTokenFromSeed'), "\n\n";
+
 // solicitar token
-$token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config);
+$token = \sasco\LibreDTE\Sii\Autenticacion::getToken($config["firma"]);
 if (!$token) {
     foreach (\sasco\LibreDTE\Log::readAll() as $error)
         echo $error, "\n";
@@ -43,9 +52,9 @@ if (!$token) {
 
 
 // consultar estado enviado
-$rut = '';
-$dv = '';
-$trackID = '';
+$rut = '7555986';
+$dv = '0';
+$trackID = '7929850666';
 $estado = \sasco\LibreDTE\Sii::request('QueryEstUp', 'getEstUp', [$rut, $dv, $trackID, $token]);
 
 // si el estado se pudo recuperar se muestra estado y glosa
